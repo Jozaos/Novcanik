@@ -1,7 +1,7 @@
 using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
@@ -11,9 +11,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-builder.Services.AddDbContext<EdunovaContext>(o =>
+builder.Services.AddDbContext<WalletContext>(o =>
 {
-    o.UseSqlServer(builder.Configuration.GetConnectionString("EdunovaContext"));
+    o.UseSqlServer(builder.Configuration.GetConnectionString("WalletContext"));
 });
 
 
