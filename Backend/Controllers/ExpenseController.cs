@@ -7,7 +7,7 @@ namespace Backend.Controllers
 
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class ExpenseController
+    public class ExpenseController:ControllerBase
     {
         private readonly WalletContext _context;
 
