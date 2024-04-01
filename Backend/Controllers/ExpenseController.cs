@@ -22,6 +22,13 @@ namespace Backend.Controllers
             return new JsonResult(_context.Expenses.ToList());
         }
 
+        [HttpGet]
+        [Route("{id:int}")]
+        public IActionResult GetBySifra(int id)
+        {
+            return new JsonResult(_context.Expenses.Find(id));
+        }
+
         [HttpPost]
         public IActionResult Post (Expense expense)
         {
