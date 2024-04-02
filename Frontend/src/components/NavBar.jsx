@@ -25,11 +25,14 @@ export default function NavBar(){
                     href="https://wallet.runasp.net/swagger/index.html"
                     target='_blank'>API</Nav.Link>
                     
-                    <NavDropdown title="Programi" id="collapsible-nav-dropdown">
+                    <NavDropdown title="Menu" id="collapsible-nav-dropdown">
                     <NavDropdown.Item 
                     onClick={()=>navigate(RoutesNames.EXPENSE_OVERVIEW)}
                     >Expenses</NavDropdown.Item>
-
+                    
+                    
+                
+                    
                     </NavDropdown>
                 </Nav>
                 

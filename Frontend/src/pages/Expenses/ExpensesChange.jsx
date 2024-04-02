@@ -5,12 +5,12 @@ import ExpenseService from "../../services/ExpenseService";
 import { useEffect, useState } from "react";
 
 
-export default function ExpensesChange(){
+export default function ExpenseoviPromjena(){
     const navigate = useNavigate();
     const routeParams = useParams();
     const [expense, setExpense] = useState({});
 
-   async function getExpenses(){
+   async function getExpense(){
         const o = await ExpenseService.getById(routeParams.id);
         if(o.greska){
             console.log(o.poruka);
@@ -20,7 +20,7 @@ export default function ExpensesChange(){
         setExpense(o.poruka);
    }
 
-   async function change(expense){
+   async function promjeni(expense){
     const odgovor = await ExpenseService.put(routeParams.id,expense);
     if (odgovor.greska){
         console.log(odgovor.poruka);
@@ -31,24 +31,23 @@ export default function ExpensesChange(){
 }
 
    useEffect(()=>{
-    getExpenses();
+    getExpense();
    },[]);
 
     function obradiSubmit(e){ // e predstavlja event
         e.preventDefault();
-        //alert('Dodajem smjer');
+        //alert('Dodajem expense');
 
         const podaci = new FormData(e.target);
 
         const expense = {
-            naziv: podaci.get('naziv'),  // 'naziv' je name atribut u Form.Control
-            trajanje: parseInt(podaci.get('trajanje')), //na backend je int
-            cijena: parseFloat(podaci.get('cijena')),
-            verificiran: podaci.get('verificiran')=='on' ? true : false            
+            date: 2024-5-20,
+            value: parseFloat(podaci.get('expense_sum')),
+            shared: podaci.get('expense_shared')=='on' ? true : false            
         };
-        //console.log(routeParams.sifra);
-        //console.log(smjer);
-        change(expense);
+        //console.log(routeParams.id);
+        //console.log(expense);
+        promjeni(expense);
 
     }
 
@@ -57,37 +56,30 @@ export default function ExpensesChange(){
         <Container>
             <Form onSubmit={obradiSubmit}>
 
-                <Form.Group controlId="naziv">
-                    <Form.Label>Naziv</Form.Label>
+                <Form.Group controlId="date">
+                    <Form.Label>Date</Form.Label>
                     <Form.Control 
-                    type="text" 
-                    name="naziv" 
-                    defaultValue={smjer.naziv}
+                    
+                    name="date" 
+                    defaultValue={expense.date}
                     required />
                 </Form.Group>
 
-                <Form.Group controlId="trajanje">
-                    <Form.Label>Trajanje</Form.Label>
-                    <Form.Control 
-                    type="number" 
-                    name="trajanje"
-                    defaultValue={smjer.trajanje}
-                     />
-                </Form.Group>
+                
 
-                <Form.Group controlId="cijena">
+                <Form.Group controlId="expense_sum">
                     <Form.Label>Cijena</Form.Label>
-                    <Form.Control type="text" name="cijena" defaultValue={smjer.cijena} />
+                    <Form.Control type="text" name="expense_sum" defaultValue={expense.expense_sum} />
                 </Form.Group>
 
-                <Form.Group controlId="verificiran">
-                    <Form.Check label="Verificiran" name="verificiran" defaultChecked={smjer.verificiran   } />
+                <Form.Group controlId="shared">
+                    <Form.Check label="Shared" name="shared" defaultChecked={expense.shared   } />
                 </Form.Group>
 
                 <hr />
                 <Row>
                     <Col>
-                        <Link className="btn btn-danger siroko" to={RoutesNames.SMJER_PREGLED}>
+                        <Link className="btn btn-danger siroko" to={RoutesNames.EXPENSE_OVERVIEW}>
                             Odustani
                         </Link>
                     </Col>

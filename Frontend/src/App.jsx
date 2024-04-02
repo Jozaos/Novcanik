@@ -7,9 +7,9 @@ import NavBar from './components/NavBar'
 import { Route, Routes } from 'react-router-dom'
 import { RoutesNames } from './constants'
 import Home from './pages/Home'
-import Expenses from './pages/Expenses/Expenses'
-import ExpensesAdd from './pages/Expenses/ExpensesAdd'
-import ExpensesChange from './pages/Expenses/ExpensesChange'
+import Expenses from './pages/expenses/Expenses'
+import ExpensesAdd from './pages/expenses/ExpensesAdd'
+import ExpensesChange from './pages/expenses/ExpensesChange'
 
 function App() {
 
@@ -19,9 +19,8 @@ function App() {
       <NavBar />
       <Routes>
         <Route path={RoutesNames.HOME} element={<Home />} />
-
         <Route path={RoutesNames.EXPENSE_OVERVIEW} element={<Expenses />} />
-        <Route path={RoutesNames.EXPENSE_NEW} element={<ExpensesAdd />} />
+        <Route path={RoutesNames.EXPENSE_ADD} element={<ExpensesAdd />} />
         <Route path={RoutesNames.EXPENSE_CHANGE} element={<ExpensesChange />} />
         
       </Routes>

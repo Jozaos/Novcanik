@@ -1,21 +1,9 @@
 import {HttpService} from "./HttpService"
 
-const naziv = '/Expense'
+const name = '/Expense'
 
 async function get(){
-    return await HttpService.get(naziv)
-    .then((odgovor)=>{
-        //console.table(odgovor.data);
-        return odgovor.data;
-    })
-    .catch((e)=>{
-        //console.log(e);
-        return e;
-    })
-}
-
-async function post(smjer){
-    return await HttpService.post(naziv,smjer)
+    return await HttpService.get(name)
     .then((odgovor)=>{
         //console.table(odgovor.data);
         return {greska: false, poruka: odgovor.data};
@@ -26,8 +14,8 @@ async function post(smjer){
     })
 }
 
-async function put(sifra,smjer){
-    return await HttpService.put(naziv + '/'+sifra,smjer)
+async function post(expense){
+    return await HttpService.post(name,expense)
     .then((odgovor)=>{
         //console.table(odgovor.data);
         return {greska: false, poruka: odgovor.data};
@@ -38,8 +26,20 @@ async function put(sifra,smjer){
     })
 }
 
-async function _delete(sifraSmjera){
-    return await HttpService.delete(naziv + '/'+sifraSmjera)
+async function put(id,expense){
+    return await HttpService.put(name + '/'+id,expense)
+    .then((odgovor)=>{
+        //console.table(odgovor.data);
+        return {greska: false, poruka: odgovor.data};
+    })
+    .catch((e)=>{
+        //console.log(e);
+        return {greska: true, poruka: e};
+    })
+}
+
+async function _delete(idExpense){
+    return await HttpService.delete(name + '/'+idExpense)
     .then((odgovor)=>{
         //console.table(odgovor.data);
         return {greska: false, poruka: odgovor.data.poruka};
@@ -50,8 +50,8 @@ async function _delete(sifraSmjera){
     })
 }
 
-async function getBySifra(sifra){
-    return await HttpService.get(naziv+'/'+sifra)
+async function getById(id){
+    return await HttpService.get(name+'/'+id)
     .then((o)=>{
         return {greska: false, poruka: o.data}
     })
@@ -65,6 +65,6 @@ export default{
     get,
     post,
     _delete,
-    getBySifra,
+    getById,
     put
 }

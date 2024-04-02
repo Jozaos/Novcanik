@@ -7,7 +7,7 @@ import ExpenseService from "../../services/ExpenseService";
 export default function ExpensesAdd(){
     const navigate = useNavigate();
 
-    async function add(expense){
+    async function dodaj(expense){
         const odgovor = await ExpenseService.post(expense);
         if (odgovor.greska){
             console.log(odgovor.poruka);
@@ -24,10 +24,9 @@ export default function ExpensesAdd(){
         const podaci = new FormData(e.target);
 
         const expense = {
-            
-            date: date(podaci.get('date')), //na backend je int
-            value: parseFloat(podaci.get('value')),
-            shared: podaci.get('shared')=='on' ? true : false            
+            date: 2024-5-20,
+            value: parseFloat(podaci.get('expense_sum')),
+            shared: podaci.get('expense_shared')=='on' ? true : false            
         };
 
         //console.log(smjer);
@@ -40,24 +39,25 @@ export default function ExpensesAdd(){
         <Container>
             <Form onSubmit={obradiSubmit}>
 
-                <Form.Group controlId="date">
+                <Form.Group controlId="naziv">
                     <Form.Label>Date</Form.Label>
-                    <Form.Control type="date" name="date" />
+                    <Form.Control type="date" name="date" required />
+                    
                 </Form.Group>
 
-                <Form.Group controlId="value">
+                <Form.Group controlId="expense_sum">
                     <Form.Label>Value</Form.Label>
-                    <Form.Control type="number.m" name="value" />
+                    <Form.Control type="text" name="expense_sum" />
                 </Form.Group>
 
-                <Form.Group controlId="shared">
-                    <Form.Check label="Shared" name="shared" />
+                <Form.Group controlId="expense_shared">
+                    <Form.Check label="Shared" name="expense_shared" />
                 </Form.Group>
 
                 <hr />
                 <Row>
                     <Col xs={6} sm={6} md={3} lg={6} xl={1} xxl={2}>
-                        <Link className="btn btn-danger siroko" to={RoutesNames.SMJER_PREGLED}>
+                        <Link className="btn btn-danger siroko" to={RoutesNames.EXPENSE_OVERVIEW}>
                             Odustani
                         </Link>
                     </Col>

@@ -25,7 +25,6 @@ export default function Expenses(){
         getExpenses();
     },[]);
 
-
     async function obrisiAsync(id){
         const odgovor = await ExpenseService._delete(id);
         if (odgovor.greska){
@@ -43,7 +42,7 @@ export default function Expenses(){
     return(
         <>
            <Container>
-            <Link to={RoutesNames.EXPENSE_NEW}> Dodaj </Link>
+            <Link to={RoutesNames.EXPENSE_ADD}> Add </Link>
             <Table striped bordered hover responsive>
                     <thead>
                         <tr>
@@ -54,19 +53,10 @@ export default function Expenses(){
                         </tr>
                     </thead>
                     <tbody>
-                    {expenses && ((expense,index)=>(
+                        {expenses && ((expense,index)=>(
                             <tr key={index}>
-                                <td>{expense.name}</td>
                                 <td>{expense.date}</td>
                                 <td>{expense.value}</td>
-                                <td>
-                                    {formatirajVerificiran(expense.verificiran)}
-                                    {/* 
-                                    {expense.verificiran==null 
-                                    ? 'Nije definirano'
-                                    : expense.verificiran ? 'DA' : 'NE'}
-                                    */}
-                                </td>
                                 <td>
                                     <Button 
                                     onClick={()=>obrisi(expense.id)}
