@@ -24,12 +24,12 @@ export default function ExpensesAdd(){
         const podaci = new FormData(e.target);
 
         const expense = {
-            date: 2024-5-20,
-            value: parseFloat(podaci.get('expense_sum')),
-            shared: podaci.get('expense_shared')=='on' ? true : false            
+            expense_date:"2024-05-25",
+            expense_sum: parseFloat(podaci.get('expense_sum')),
+            expense_shared: podaci.get('expense_shared')=='on' ? true : false            
         };
 
-        //console.log(smjer);
+        //console.log(expense);
         dodaj(expense);
 
     }
@@ -41,7 +41,7 @@ export default function ExpensesAdd(){
 
                 <Form.Group controlId="naziv">
                     <Form.Label>Date</Form.Label>
-                    <Form.Control defaultValue="2024-04-04"  name="date" required />
+                    <Form.Control defaultValue="2024-05-25"  name="date" required />
                     
                 </Form.Group>
 

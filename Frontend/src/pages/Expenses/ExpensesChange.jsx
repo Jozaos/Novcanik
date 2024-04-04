@@ -41,9 +41,9 @@ export default function ExpenseoviPromjena(){
         const podaci = new FormData(e.target);
 
         const expense = {
-            date: 2024-5-20,
-            value: parseFloat(podaci.get('expense_sum')),
-            shared: podaci.get('expense_shared')=='on' ? true : false            
+            expense_date: "2024-05-25",
+            expense_sum: parseFloat(podaci.get('expense_sum')),
+            expense_shared: podaci.get('expense_shared')=='on' ? true : false            
         };
         //console.log(routeParams.id);
         //console.log(expense);
