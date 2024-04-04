@@ -26,7 +26,7 @@ export default function ExpensesAdd(){
         const expense = {
             expense_date:"2024-05-25",
             expense_sum: parseFloat(podaci.get('expense_sum')),
-            expense_shared: podaci.get('expense_shared')=='on' ? true : false            
+            expense_shared: podaci.get('expense_shared')           
         };
 
         //console.log(expense);
@@ -51,7 +51,8 @@ export default function ExpensesAdd(){
                 </Form.Group>
 
                 <Form.Group controlId="expense_shared">
-                    <Form.Check label="Shared" name="expense_shared" />
+                <Form.Label>Shared</Form.Label>
+                    <Form.Control type="decimal" name="expense_shared" />
                 </Form.Group>
 
                 <hr />

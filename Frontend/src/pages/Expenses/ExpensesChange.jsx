@@ -43,7 +43,7 @@ export default function ExpenseoviPromjena(){
         const expense = {
             expense_date: "2024-05-25",
             expense_sum: parseFloat(podaci.get('expense_sum')),
-            expense_shared: podaci.get('expense_shared')=='on' ? true : false            
+            expense_shared: podaci.get('expense_shared')           
         };
         //console.log(routeParams.id);
         //console.log(expense);
@@ -68,12 +68,13 @@ export default function ExpenseoviPromjena(){
                 
 
                 <Form.Group controlId="expense_sum">
-                    <Form.Label>Cijena</Form.Label>
+                    <Form.Label>Value</Form.Label>
                     <Form.Control type="text" name="expense_sum" defaultValue={expense.expense_sum} />
                 </Form.Group>
 
                 <Form.Group controlId="shared">
-                    <Form.Check label="Shared" name="shared" defaultChecked={expense.expense_shared   } />
+                    <Form.Label>Shared</Form.Label>
+                <Form.Control type="decimal" name="expense_shared" defaultValue={expense.expense_shared} />
                 </Form.Group>
 
                 <hr />
