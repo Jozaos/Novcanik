@@ -3,8 +3,13 @@
   color: darkgoldenrod;
 
 }
-*{
-  background-image: url(https://youtapinsights.com/wp-content/uploads/2022/10/digitalwallet-e1667175316583.jpg);
+body{
+background-image: url(https://youtapinsights.com/wp-content/uploads/2022/10/digitalwallet-e1667175316583.jpg);
+background-position: center;
+padding-top: 4%;
+padding-bottom: 4%;
+background-size:cover;
+background-repeat: no-repeat;
 }
 .siroko{
   width: 100%;
