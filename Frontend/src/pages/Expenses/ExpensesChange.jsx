@@ -61,7 +61,7 @@ export default function ExpenseoviPromjena(){
                     <Form.Control 
                     
                     name="date" 
-                    defaultValue={expense.date}
+                    defaultValue={expense.expense_date}
                     required />
                 </Form.Group>
 
@@ -73,19 +73,19 @@ export default function ExpenseoviPromjena(){
                 </Form.Group>
 
                 <Form.Group controlId="shared">
-                    <Form.Check label="Shared" name="shared" defaultChecked={expense.shared   } />
+                    <Form.Check label="Shared" name="shared" defaultChecked={expense.expense_shared   } />
                 </Form.Group>
 
                 <hr />
                 <Row>
                     <Col>
                         <Link className="btn btn-danger siroko" to={RoutesNames.EXPENSE_OVERVIEW}>
-                            Odustani
+                            Cancel
                         </Link>
                     </Col>
                     <Col>
                         <Button className="siroko" variant="primary" type="submit">
-                            Promjeni
+                            Change
                         </Button>
                     </Col>
                 </Row>

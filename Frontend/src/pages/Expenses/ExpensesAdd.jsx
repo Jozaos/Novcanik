@@ -41,7 +41,7 @@ export default function ExpensesAdd(){
 
                 <Form.Group controlId="naziv">
                     <Form.Label>Date</Form.Label>
-                    <Form.Control type="date" name="date" required />
+                    <Form.Control defaultValue="2024-04-04"  name="date" required />
                     
                 </Form.Group>
 
@@ -58,12 +58,12 @@ export default function ExpensesAdd(){
                 <Row>
                     <Col xs={6} sm={6} md={3} lg={6} xl={1} xxl={2}>
                         <Link className="btn btn-danger siroko" to={RoutesNames.EXPENSE_OVERVIEW}>
-                            Odustani
+                            Cancel
                         </Link>
                     </Col>
                     <Col xs={6} sm={6} md={9} lg={6} xl={1} xxl={10}>
                         <Button className="siroko" variant="primary" type="submit">
-                            Dodaj
+                            Add
                         </Button>
                     </Col>
                 </Row>

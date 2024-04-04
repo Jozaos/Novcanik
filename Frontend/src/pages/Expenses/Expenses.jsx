@@ -14,7 +14,7 @@ export default function Expenses(){
     async function getExpenses(){
         await ExpenseService.get()
         .then((odg)=>{
-            setExpenses(odg);
+            setExpenses(odg.poruka);
         })
         .catch((e)=>{
             console.log(e);
@@ -53,22 +53,23 @@ export default function Expenses(){
                         </tr>
                     </thead>
                     <tbody>
-                        {expenses && ((expense,index)=>(
+                        {expenses && expenses.map((expense,index)=>(
                             <tr key={index}>
-                                <td>{expense.date}</td>
-                                <td>{expense.value}</td>
+                                <td>{expense.expense_date}</td>
+                                <td>{expense.expense_sum}</td>
+                                <td>{expense.expense_shared}</td>
                                 <td>
                                     <Button 
                                     onClick={()=>obrisi(expense.id)}
                                     variant='danger'
                                     >
-                                        Obriši
+                                        Delete
                                     </Button>
                                         {/* kosi jednostruki navodnici `` su AltGR (desni) + 7 */}
                                     <Button 
                                     onClick={()=>{navigate(`/expenses/${expense.id}`)}} 
                                     >
-                                        Promjeni
+                                        Change
                                     </Button>
                                 </td>
                             </tr>
