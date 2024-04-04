@@ -42,13 +42,19 @@ export default function Expenses(){
     return(
         <>
            <Container>
-            <Link to={RoutesNames.EXPENSE_ADD}> Add </Link>
+            <Button>
+                <Link to={RoutesNames.EXPENSE_ADD} style={{textDecoration:'none', color:'black'}}> Add </Link>
+            </Button>
+            <p>
+
+            </p>
+            
             <Table striped bordered hover responsive>
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Value</th>
-                            <th>Shared</th>
+                            <th>Value (€)</th>
+                            <th>Shared (€)</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -65,6 +71,8 @@ export default function Expenses(){
                                     >
                                         Delete
                                     </Button>
+                                    {' '}
+
                                         {/* kosi jednostruki navodnici `` su AltGR (desni) + 7 */}
                                     <Button 
                                     onClick={()=>{navigate(`/expenses/${expense.id}`)}} 

@@ -1,7 +1,11 @@
-.kursor{
+.navbar{
   cursor: pointer;
-}
+  color: darkgoldenrod;
 
+}
+*{
+  background-image: url(https://youtapinsights.com/wp-content/uploads/2022/10/digitalwallet-e1667175316583.jpg);
+}
 .siroko{
   width: 100%;
 }
