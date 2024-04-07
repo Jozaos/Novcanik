@@ -11,5 +11,17 @@ namespace Backend.Data
         }
 
         public DbSet<Expense> Expenses { get; set; }
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<Income> Incomes { get; set; }
+        public DbSet<GroupExpense> GroupExpenses { get; set;}
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<GroupExpense>().HasOne(g => g.accounts);
+            modelBuilder.Entity<GroupExpense>().HasOne(g => g.GroupExpenses);
+
+
+
+        }
     }
 }
