@@ -18,7 +18,7 @@ namespace Backend.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<GroupExpense>().HasOne(g => g.accounts);
-            modelBuilder.Entity<GroupExpense>().HasOne(g => g.GroupExpenses);
+            //modelBuilder.Entity<GroupExpense>().HasOne(g => g.expense);
 
 
 
