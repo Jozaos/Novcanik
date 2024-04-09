@@ -11,6 +11,7 @@ namespace Backend.Data
         }
 
         public DbSet<Expense> Expenses { get; set; }
+<<<<<<< HEAD
 <<<<<<< Updated upstream
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Income> Incomes { get; set; }
@@ -30,5 +31,7 @@ namespace Backend.Data
 
 
         }
+=======
+>>>>>>> parent of 536134c (rad na backendu)
     }
 }
