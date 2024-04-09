@@ -7,7 +7,7 @@ namespace Backend.Controllers
 
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class GroupExpenseController:ControllerBase
+    public class GroupExpenseController : ControllerBase
     {
         private readonly WalletContext _context;
 
@@ -30,7 +30,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post (GroupExpense groupExpense)
+        public IActionResult Post(GroupExpense groupExpense)
         {
             _context.GroupExpenses.Add(groupExpense);
             _context.SaveChanges();
@@ -42,8 +42,8 @@ namespace Backend.Controllers
         public IActionResult Put(int id, GroupExpense groupExpense)
         {
             var IdIzbaze = _context.GroupExpenses.Find(id);
-            IdIzbaze.account=groupExpense.account;
-            IdIzbaze.expense=groupExpense.expense;
+            IdIzbaze.account = groupExpense.account;
+            IdIzbaze.expense = groupExpense.expense;
 
             _context.GroupExpenses.Update(IdIzbaze);
             _context.SaveChanges();

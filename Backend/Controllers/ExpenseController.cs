@@ -1,65 +1,38 @@
 ﻿using Backend.Data;
 using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Backend.Controllers
 {
-
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class ExpenseController:ControllerBase
+    public class ExpenseController : WalletController<Expense, ExpenseDTORead, ExpenseDTOInsertUpdate>
     {
-        private readonly WalletContext _context;
-
-        public ExpenseController(WalletContext context)
+        public ExpenseController(WalletContext context) : base(context)
         {
-            _context = context;
+            DbSet = _context.Expenses;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        protected override void ControlDelete(Expense entity)
         {
-            return new JsonResult(_context.Expenses.ToList());
+            throw new NotImplementedException();
         }
 
-        [HttpGet]
-        [Route("{id:int}")]
-        public IActionResult GetBySifra(int id)
-        {
-            return new JsonResult(_context.Expenses.Find(id));
-        }
+        //protected override void KontrolaBrisanje(Expense entitet)
+        //{
+        //    var lista = _context.Expenses
+        //        .Include(x => x.Username)
+        //        .Where(x => x.GroupExpenses.== entitet.Id)
+        //        .ToList();
+        //    if (lista != null && lista.Count > 0)
+        //    {
+               
+        //        throw new Exception(); // umjesto sb.ToString().Substring(0, sb.ToString().Length - 2)
+        //    }
+        
 
-        [HttpPost]
-        public IActionResult Post (Expense expense)
-        {
-            _context.Expenses.Add(expense);
-            _context.SaveChanges();
-            return new JsonResult(expense);
-        }
-
-        [HttpPut]
-        [Route("{id:int}")]
-        public IActionResult Put(int id, Expense expense)
-        {
-            var IdIzbaze = _context.Expenses.Find(id);
-            IdIzbaze.Expense_sum=expense.Expense_sum;
-            IdIzbaze.Expense_date=expense.Expense_date;
-            IdIzbaze.Expense_shared=expense.Expense_shared;
-
-            _context.Expenses.Update(IdIzbaze);
-            _context.SaveChanges();
-            return new JsonResult(expense);
-        }
-
-        [HttpDelete]
-        [Route("{id:int}")]
-        [Produces("application/json")]
-        public IActionResult Delete(int id)
-        {
-            var IdIzBaze = _context.Expenses.Find(id);
-            _context.Expenses.Remove(IdIzBaze);
-            _context.SaveChanges();
-            return new JsonResult(new { poruka = "Obrisano" });
-        }
     }
 }

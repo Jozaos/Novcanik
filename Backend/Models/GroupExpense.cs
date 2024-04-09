@@ -2,7 +2,7 @@
 
 namespace Backend.Models
 {
-    public class GroupExpense:Account
+    public class GroupExpense : Account
     {
         [ForeignKey("account")]
         public int? account { get; set; }

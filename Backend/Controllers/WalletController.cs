@@ -1,6 +1,6 @@
 ﻿using Backend.Data;
 using Backend.Models;
-using EdunovaAPP.Mappers;
+using Backend.Mappers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
