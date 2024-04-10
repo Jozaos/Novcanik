@@ -19,20 +19,20 @@ namespace Backend.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return new JsonResult(_context.GroupExpense.ToList());
+            return new JsonResult(_context.Group_Expense.ToList());
         }
 
         [HttpGet]
         [Route("{id:int}")]
         public IActionResult GetBySifra(int id)
         {
-            return new JsonResult(_context.GroupExpense.Find(id));
+            return new JsonResult(_context.Group_Expense.Find(id));
         }
 
         [HttpPost]
         public IActionResult Post(GroupExpense groupExpense)
         {
-            _context.GroupExpense.Add(groupExpense);
+            _context.Group_Expense.Add(groupExpense);
             _context.SaveChanges();
             return new JsonResult(groupExpense);
         }
@@ -41,11 +41,11 @@ namespace Backend.Controllers
         [Route("{id:int}")]
         public IActionResult Put(int id, GroupExpense groupExpense)
         {
-            var IdIzbaze = _context.GroupExpense.Find(id);
+            var IdIzbaze = _context.Group_Expense.Find(id);
             IdIzbaze.account = groupExpense.account;
             IdIzbaze.expense = groupExpense.expense;
 
-            _context.GroupExpense.Update(IdIzbaze);
+            _context.Group_Expense.Update(IdIzbaze);
             _context.SaveChanges();
             return new JsonResult(groupExpense);
         }
@@ -55,8 +55,8 @@ namespace Backend.Controllers
         [Produces("application/json")]
         public IActionResult Delete(int id)
         {
-            var IdIzBaze = _context.GroupExpense.Find(id);
-            _context.GroupExpense.Remove(IdIzBaze);
+            var IdIzBaze = _context.Group_Expense.Find(id);
+            _context.Group_Expense.Remove(IdIzBaze);
             _context.SaveChanges();
             return new JsonResult(new { poruka = "Obrisano" });
         }

@@ -10,7 +10,7 @@ namespace Backend.Models
         public string? username { get; set; }
         public string? owner_name { get; set; }
         public string? surname { get; set; }
-        public int? id_num { get; set; }
+        public string? id_num { get; set; }
         public decimal? balance { get; set; }
     }
 

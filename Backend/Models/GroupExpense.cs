@@ -5,11 +5,11 @@ namespace Backend.Models
 {
     public class GroupExpense : Entitet
     {
-        [ForeignKey("account")]
-        public int? account { get; set; }
+        [ForeignKey("accountidd")]
+        public Account account { get; set; }
 
 
-        [ForeignKey("expense")]
-        public int? expense { get; set; }
+        [ForeignKey("expenseid")]
+        public Expense expense { get; set; }
     }
 }
