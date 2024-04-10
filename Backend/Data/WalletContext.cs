@@ -11,7 +11,7 @@ namespace Backend.Data
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Income> Incomes { get; set; }
-        public DbSet<GroupExpense> Group_Expense { get; set; }
+        public DbSet<GroupExpense> Group_Expenses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
