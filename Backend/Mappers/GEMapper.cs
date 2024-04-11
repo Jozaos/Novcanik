@@ -32,14 +32,8 @@ namespace Backend.Mapping
                 c.CreateMap<GE, GEDtoInsertUpdate>()
                 .ConstructUsing(entitet =>
                  new GEDtoInsertUpdate(
-
-
-                    entitet.Riba.id,
-                    entitet.Unos.id,
-                    entitet.Tezina,
-                    entitet.Kolicina,
-                    entitet.Duzina,
-                    entitet.Fotografija));
+                     
+                     ));
             })); ; ;
         }
     }
