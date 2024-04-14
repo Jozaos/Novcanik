@@ -4,42 +4,41 @@ using System.Text.RegularExpressions;
 
 namespace Backend.Mapping
 {
-    public class GEMapping : Mapping<GE, GEDTORead, GEDtoInsertUpdate>
+    public class GEMapping : Mapping<GroupExpense, GEDtoRead, GEDTOInsertUpdate>
     {
 
         public GEMapping()
         {
             MapperMapReadToDTO = new Mapper(new MapperConfiguration(c => {
-                c.CreateMap<GE, GEDTORead>()
+                c.CreateMap<GroupExpense, GEDtoRead>()
                 .ConstructUsing(entitet =>
-                 new GEDTORead(
-                    entitet.id,
+                 new GEDtoRead(
+                    entitet.Id,
 
-                    entitet.Riba.Vrsta,
-                    entitet.Unos.id,
-                    entitet.Tezina,
-                    entitet.Kolicina,
-                    entitet.Duzina,
-                    entitet.Fotografija
+                    entitet.account.Id,
+                    entitet.expense.Id
+
                     ));
             }));
 
             MapperMapInsertUpdatedFromDTO = new Mapper(new MapperConfiguration(c => {
-                c.CreateMap<GEDtoInsertUpdate, GE>();
+                c.CreateMap<GEDTOInsertUpdate, GroupExpense>();
             }));
 
             MapperMapInsertUpdateToDTO = new Mapper(new MapperConfiguration(c => {
-                c.CreateMap<GE, GEDtoInsertUpdate>()
+                c.CreateMap<GroupExpense, GEDTOInsertUpdate>()
                 .ConstructUsing(entitet =>
-                 new GEDtoInsertUpdate(
-                     
+                 new GEDTOInsertUpdate(
+
+
+
+
+                    entitet.account.Id,
+                    entitet.expense.Id
+
                      ));
             })); ; ;
         }
     }
 }
-
-
-
-
 

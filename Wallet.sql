@@ -60,3 +60,8 @@ insert into expenses (expense_date, expense_sum, expense_shared) values
 (getdate(),20.00,null),
 (getdate(),700.00,350.00),
 (getdate(),960.60,null);
+
+
+ALTER TABLE expenses ALTER COLUMN expense_sum decimal(18,2);
+ALTER TABLE expenses ALTER COLUMN expense_shared decimal(18,2);
+ALTER TABLE accounts ALTER COLUMN balance decimal(18,2);
