@@ -3,6 +3,13 @@ export const RoutesNames = {
 
     EXPENSE_OVERVIEW: '/expenses',
     EXPENSE_ADD: '/expenses/add',
-    EXPENSE_CHANGE: '/expenses/:id'
+    EXPENSE_CHANGE: '/expenses/:id',
+
+
+    ACCOUNT_OVERVIEW: '/accounts',
+    ACCOUNT_ADD:'/accounts/add',
+    ACCOUNT_CHANGE:'/accounts/:id',
+
+    
     
 };

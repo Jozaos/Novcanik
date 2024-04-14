@@ -28,6 +28,10 @@ export default function NavBar(){
                     <NavDropdown.Item 
                     onClick={()=>navigate(RoutesNames.EXPENSE_OVERVIEW)}
                     >Expenses</NavDropdown.Item>
+                    
+                    <NavDropdown.Item 
+                    onClick={()=>navigate(RoutesNames.ACCOUNT_OVERVIEW)}
+                    >Accounts</NavDropdown.Item>
                       
                     </NavDropdown>
                 </Nav>

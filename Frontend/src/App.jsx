@@ -10,6 +10,7 @@ import Home from './pages/Home'
 import Expenses from './pages/expenses/Expenses'
 import ExpensesAdd from './pages/expenses/ExpensesAdd'
 import ExpensesChange from './pages/expenses/ExpensesChange'
+import Accounts from './pages/accounts/Accounts'
 
 function App() {
 
@@ -22,7 +23,8 @@ function App() {
         <Route path={RoutesNames.EXPENSE_OVERVIEW} element={<Expenses />} />
         <Route path={RoutesNames.EXPENSE_ADD} element={<ExpensesAdd />} />
         <Route path={RoutesNames.EXPENSE_CHANGE} element={<ExpensesChange />} />
-        
+        <Route path={RoutesNames.ACCOUNT_OVERVIEW} element={<Accounts />} />
+
       </Routes>
     </>
 
