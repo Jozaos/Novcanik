@@ -11,6 +11,9 @@ import Expenses from './pages/expenses/Expenses'
 import ExpensesAdd from './pages/expenses/ExpensesAdd'
 import ExpensesChange from './pages/expenses/ExpensesChange'
 import Accounts from './pages/accounts/Accounts'
+import AccountsAdd from './pages/accounts/AccountsAdd'
+import AccountsChange from './pages/accounts/AccountsChange'
+import Incomes from './pages/incomes/Incomes'
 
 function App() {
 
@@ -23,7 +26,12 @@ function App() {
         <Route path={RoutesNames.EXPENSE_OVERVIEW} element={<Expenses />} />
         <Route path={RoutesNames.EXPENSE_ADD} element={<ExpensesAdd />} />
         <Route path={RoutesNames.EXPENSE_CHANGE} element={<ExpensesChange />} />
+
         <Route path={RoutesNames.ACCOUNT_OVERVIEW} element={<Accounts />} />
+        <Route path={RoutesNames.ACCOUNT_ADD} element={<AccountsAdd />} />
+        <Route path={RoutesNames.ACCOUNT_CHANGE} element={<AccountsChange />} />
+
+        <Route path={RoutesNames.INCOME_OVERVIEW} element={<Incomes />} />
 
       </Routes>
     </>
