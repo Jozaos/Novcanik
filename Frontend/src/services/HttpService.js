@@ -2,7 +2,8 @@ import axios from "axios";
 import {AxiosError} from 'axios';
 import { App } from "../constants";
 
-export const httpService = axios.create({
+
+export const HttpService = axios.create({
     baseURL: App.URL + '/api/v1',
     headers:{
         'Content-Type': 'application/json'
@@ -10,19 +11,19 @@ export const httpService = axios.create({
 });
 
 export async function get(naziv){
-    return await httpService.get('/' + naziv).then((res)=>{return obradiUspjeh(res);}).catch((e)=>{ return obradiGresku(e);});
+    return await HttpService.get('/' + naziv).then((res)=>{return obradiUspjeh(res);}).catch((e)=>{ return obradiGresku(e);});
 }
 export async function getBySifra(naziv,sifra) {
-    return await httpService.get('/'+naziv+'/' + sifra).then((res)=>{return obradiUspjeh(res);}).catch((e)=>{ return obradiGresku(e);});
+    return await HttpService.get('/'+naziv+'/' + sifra).then((res)=>{return obradiUspjeh(res);}).catch((e)=>{ return obradiGresku(e);});
     }
 export async function dodaj(naziv,entitet) {
-return await httpService.post('/' + naziv, entitet).then((res)=>{return obradiUspjeh(res);}).catch((e)=>{ return obradiGresku(e);});
+return await HttpService.post('/' + naziv, entitet).then((res)=>{return obradiUspjeh(res);}).catch((e)=>{ return obradiGresku(e);});
 }
 export async function promjeni(naziv,sifra, entitet) {
-return await httpService.put('/'+naziv+'/' + sifra, entitet).then((res)=>{return obradiUspjehBrisanje(res);}).catch((e)=>{ return obradiGresku(e);});
+return await HttpService.put('/'+naziv+'/' + sifra, entitet).then((res)=>{return obradiUspjehBrisanje(res);}).catch((e)=>{ return obradiGresku(e);});
 }
 export async function obrisi(naziv,sifra) {
-    return await httpService.delete('/' + naziv + '/' + sifra).then((res)=>{return obradiUspjehBrisanje(res);}).catch((e)=>{ return obradiGresku(e);});
+    return await HttpService.delete('/' + naziv + '/' + sifra).then((res)=>{return obradiUspjehBrisanje(res);}).catch((e)=>{ return obradiGresku(e);});
 }
     
 
