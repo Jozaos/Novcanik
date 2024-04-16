@@ -24,11 +24,11 @@ function App() {
       <Routes>
         <Route path={RoutesNames.HOME} element={<Home />} />
         <Route path={RoutesNames.EXPENSE_OVERVIEW} element={<Expenses />} />
-        <Route path={RoutesNames.EXPENSE_ADD} element={<ExpensesAdd />} />
+        <Route path={RoutesNames.EXPENSE_NEW} element={<ExpensesAdd />} />
         <Route path={RoutesNames.EXPENSE_CHANGE} element={<ExpensesChange />} />
 
         <Route path={RoutesNames.ACCOUNT_OVERVIEW} element={<Accounts />} />
-        <Route path={RoutesNames.ACCOUNT_ADD} element={<AccountsAdd />} />
+        <Route path={RoutesNames.ACCOUNT_NEW} element={<AccountsAdd />} />
         <Route path={RoutesNames.ACCOUNT_CHANGE} element={<AccountsChange />} />
 
         <Route path={RoutesNames.INCOME_OVERVIEW} element={<Incomes />} />

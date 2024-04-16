@@ -37,18 +37,6 @@ export default function Expenses(){
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
     
-    function verificiran(expense){
-        if (expense.verificiran==null) return 'gray';
-        if(expense.verificiran) return 'green';
-        return 'red';
-    }
-
-    function verificiranTitle(expense){
-        if (expense.verificiran==null) return 'Nije definirano';
-        if(expense.verificiran) return 'Verificiran';
-        return 'NIJE verificiran';
-    }
-
     return (
 
         <Container>
@@ -99,13 +87,7 @@ export default function Expenses(){
                                     />
                                 }
                             </td>
-                            <td className="sredina">
-                            <GrValidate 
-                            size={30} 
-                            color={verificiran(expense)}
-                            title={verificiranTitle(expense)}
-                            />
-                            </td>
+                            
                             <td className="sredina">
                                 <Button 
                                 variant="primary"
