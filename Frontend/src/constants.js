@@ -1,24 +1,24 @@
 export const RoutesNames = {
     HOME: '/',
 
-    EXPENSE_OVERVIEW: '/expenses',
-    EXPENSE_NEW: '/expenses/add',
-    EXPENSE_CHANGE: '/expenses/:id',
+    EXPENSE_OVERVIEW: '/expense',
+    EXPENSE_NEW: '/expense/add',
+    EXPENSE_CHANGE: '/expense/:id',
 
 
-    ACCOUNT_OVERVIEW: '/accounts',
-    ACCOUNT_NEW:'/accounts/add',
-    ACCOUNT_CHANGE:'/accounts/:id',
+    ACCOUNT_OVERVIEW: '/account',
+    ACCOUNT_NEW:'/account/add',
+    ACCOUNT_CHANGE:'/account/:id',
 
-    INCOME_OVERVIEW:'/incomes',
-    INCOME_NEW:'/incomes/add',
-    INCOME_CHANGE:'/incomes/:id'
+    INCOME_OVERVIEW:'/income',
+    INCOME_NEW:'/income/add',
+    INCOME_CHANGE:'/income/:id'
 
     
     
 };
 
 export const App = {
-    URL: 'https://wallet.runasp.net/',
+    URL: 'https://wallet.runasp.net',
     DEV: false
 };

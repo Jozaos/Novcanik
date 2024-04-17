@@ -57,8 +57,30 @@ export default function Expenses(){
                         <tr key={index}>
 
                                 <td>{expense.expense_date}</td>
-                                <td>{expense.expense_sum}</td>
-                                <td>{expense.expense_shared}</td>
+                                <td>{expense.expense_sum}
+                                
+                                <NumericFormat 
+                                    value={expense.expense_sum}
+                                    displayType={'text'}
+                                    thousandSeparator='.'
+                                    decimalSeparator=','
+                                    prefix={'€'}
+                                    decimalScale={2}
+                                    fixedDecimalScale
+                                    />
+                                
+                                </td>
+                                <td>{expense.expense_shared}
+                                <NumericFormat 
+                                    value={expense.expense_shared}
+                                    displayType={'text'}
+                                    thousandSeparator='.'
+                                    decimalSeparator=','
+                                    prefix={'€'}
+                                    decimalScale={2}
+                                    fixedDecimalScale
+                                    />
+                                </td>
 
                             <td className="sredina">
                                 <Button 
