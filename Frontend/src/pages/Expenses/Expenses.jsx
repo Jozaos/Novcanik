@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import {  Button, Container, Table } from "react-bootstrap";
 import Service from "../../services/ExpenseService";
@@ -13,8 +12,7 @@ import { RoutesNames } from "../../constants";
 export default function Expenses(){
     const [expenses,setExpenses] = useState();
     const navigate = useNavigate();
-
-    async function dohvatiSmjerove(){
+    async function getExpenses(){
         const odgovor = await Service.get('Expense');
         if(!odgovor.ok){
             alert(Service.dohvatiPorukeAlert(odgovor.podaci));
@@ -23,17 +21,17 @@ export default function Expenses(){
         setExpenses(odgovor.podaci);
     }
 
-    async function obrisiSmjer(id){
+    async function deleteExpense(id){
         const odgovor = await Service.obrisi('Expense',id);
         alert(Service.dohvatiPorukeAlert(odgovor.podaci));
         if (odgovor.ok){
-            dohvatiSmjerove();
+            getExpenses();
         }
     }
      // Ovo se poziva dvaput u dev ali jednom u produkciji
     // https://stackoverflow.com/questions/60618844/react-hooks-useeffect-is-called-twice-even-if-an-empty-array-is-used-as-an-ar
     useEffect(()=>{
-        dohvatiSmjerove();
+        getExpenses();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
     
@@ -43,7 +41,7 @@ export default function Expenses(){
             <Link to={RoutesNames.EXPENSE_NEW} className="btn btn-success siroko">
                 <IoIosAdd
                 size={25}
-                /> Dodaj
+                /> Add
             </Link>
             <Table striped bordered hover responsive>
                 <thead>
@@ -57,37 +55,11 @@ export default function Expenses(){
                 <tbody>
                     {expenses && expenses.map((expense,index)=>(
                         <tr key={index}>
-                            <td>{expense.expense_date}</td>
-                            <td className="desno">{expense.expense_sum}
-                            {expense.expense_sum==null 
-                                ? 'Nije definirano'
-                                :
-                                    <NumericFormat 
-                                    value={expense.expense_sum}
-                                    displayType={'text'}
-                                    thousandSeparator='.'
-                                    decimalSeparator=','
-                                    prefix={'€'}
-                                    decimalScale={2}
-                                    fixedDecimalScale
-                                    />
-                                }</td>
-                            <td className={expense.expense_shared==null ? 'sredina' : 'desno'}>
-                                {expense.expense_shared==null 
-                                ? 'Nije definirano'
-                                :
-                                    <NumericFormat 
-                                    value={expense.expense_shared}
-                                    displayType={'text'}
-                                    thousandSeparator='.'
-                                    decimalSeparator=','
-                                    prefix={'€'}
-                                    decimalScale={2}
-                                    fixedDecimalScale
-                                    />
-                                }
-                            </td>
-                            
+
+                                <td>{expense.expense_date}</td>
+                                <td>{expense.expense_sum}</td>
+                                <td>{expense.expense_shared}</td>
+
                             <td className="sredina">
                                 <Button 
                                 variant="primary"
@@ -100,7 +72,7 @@ export default function Expenses(){
                                     &nbsp;&nbsp;&nbsp;
                                 <Button
                                     variant="danger"
-                                    onClick={()=>obrisiSmjer(expense.id)}
+                                    onClick={()=>deleteExpense(expense.id)}
                                 >
                                     <FaTrash  
                                     size={25}

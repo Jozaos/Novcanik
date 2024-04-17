@@ -1,98 +1,64 @@
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { RoutesNames } from "../../constants";
-import ExpenseService from "../../services/ExpenseService";
 import { useEffect, useState } from "react";
+import {  Container, Form } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
+import Service from "../../services/ExpenseService";
+import { RoutesNames } from "../../constants";
+import InputText from "../../components/InputText";
+import InputCheckbox from "../../components/InputCheckbox";
+import Action from "../../components/Action";
 
+export default function ExpensesChange(){
 
-export default function ExpenseoviPromjena(){
     const navigate = useNavigate();
     const routeParams = useParams();
-    const [expense, setExpense] = useState({});
+    const [expense,setExpense] = useState({});
 
-   async function getExpense(){
-        const o = await ExpenseService.getById(routeParams.id);
-        if(o.greska){
-            console.log(o.poruka);
-            alert('pogledaj konzolu');
+    async function getExpense(){
+        const odgovor = await Service.getBySifra('Expense',routeParams.sifra)
+        if(!odgovor.ok){
+            alert(Service.dohvatiPorukeAlert(odgovor.podaci));
+            navigate(RoutesNames.EXPENSE_OVERVIEW);
             return;
         }
-        setExpense(o.poruka);
-   }
-
-   async function promjeni(expense){
-    const odgovor = await ExpenseService.put(routeParams.id,expense);
-    if (odgovor.greska){
-        console.log(odgovor.poruka);
-        alert('Pogledaj konzolu');
-        return;
+        setExpense(odgovor.podaci);
     }
-    navigate(RoutesNames.EXPENSE_OVERVIEW);
-}
 
-   useEffect(()=>{
-    getExpense();
-   },[]);
+    useEffect(()=>{
+        getExpense();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
 
-    function obradiSubmit(e){ // e predstavlja event
+    async function changeExpense(expense){
+        const odgovor = await Service.promjeni('Expense',routeParams.sifra,expense);
+        if(odgovor.ok){
+          navigate(RoutesNames.EXPENSE_OVERVIEW);
+          return;
+        }
+        alert(Service.dohvatiPorukeAlert(odgovor.podaci));
+    }
+
+    
+    function handleSubmit(e){
         e.preventDefault();
-        //alert('Dodajem expense');
-
         const podaci = new FormData(e.target);
-
-        const expense = {
+        changeExpense({
             expense_date: "2024-05-25",
             expense_sum: parseFloat(podaci.get('expense_sum')),
-            expense_shared: podaci.get('expense_shared')           
-        };
-        //console.log(routeParams.id);
-        //console.log(expense);
-        promjeni(expense);
-
+            expense_shared: podaci.get('expense_shared') 
+        });
     }
 
+
+
     return (
-
         <Container>
-            <Form onSubmit={obradiSubmit}>
-
-                <Form.Group controlId="date">
-                    <Form.Label>Date</Form.Label>
-                    <Form.Control 
-                    
-                    name="date" 
-                    defaultValue={expense.expense_date}
-                    required />
-                </Form.Group>
-
-                
-
-                <Form.Group controlId="expense_sum">
-                    <Form.Label>Value</Form.Label>
-                    <Form.Control type="text" name="expense_sum" defaultValue={expense.expense_sum} />
-                </Form.Group>
-
-                <Form.Group controlId="shared">
-                    <Form.Label>Shared</Form.Label>
-                <Form.Control type="decimal" name="expense_shared" defaultValue={expense.expense_shared} />
-                </Form.Group>
-
-                <hr />
-                <Row>
-                    <Col>
-                        <Link className="btn btn-danger siroko" to={RoutesNames.EXPENSE_OVERVIEW}>
-                            Cancel
-                        </Link>
-                    </Col>
-                    <Col>
-                        <Button className="siroko" variant="primary" type="submit">
-                            Change
-                        </Button>
-                    </Col>
-                </Row>
-
-            </Form>
-        </Container>
-
+           <Form onSubmit={handleSubmit}>
+                    <InputText atribut='expense_date' vrijednost={expense.expense_date} />
+                    <InputText atribut='expense_sum' vrijednost={expense.expense_sum} />
+                    <InputText atribut='expense_shared' vrijednost={expense.expense_shared} />
+                    <Action odustani={RoutesNames.EXPENSE_OVERVIEW} akcija='Change expense' />
+             </Form>
+             </Container>
     );
+
 }
