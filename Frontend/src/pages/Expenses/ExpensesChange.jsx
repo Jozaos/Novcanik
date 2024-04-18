@@ -20,6 +20,8 @@ export default function ExpensesChange(){
             navigate(RoutesNames.EXPENSE_OVERVIEW);
             return;
         }
+        odgovor.podaci.creationDate = moment.utc(odgovor.podaci.creationDate).format('YYYY-MM-DD')
+        odgovor.podaci.completionDate = moment.utc(odgovor.podaci.completionDate).format('YYYY-MM-DD')
         setExpense(odgovor.podaci);
     }
 

@@ -65,7 +65,7 @@ export default function Expenses(){
                     {expenses && expenses.map((expense,index)=>(
                         <tr key={index}>
 
-                                <td>{expense.expense_date}</td>
+                                <td>{formatDate(expense.expense_date)}</td>
 
                                 <td>
                                 <NumericFormat 
