@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { RoutesNames } from "../../constants";
 import Service from "../../services/ExpenseService";
 import InputText from "../../components/InputText";
-import InputCheckbox from "../../components/InputCheckbox";
 import Action from "../../components/Action"
+import moment from "moment";
+
 
 export default function ExpensesAdd(){
     const navigate = useNavigate();
+
 
     async function addExpense(expense){
         const odgovor = await Service.dodaj('Expense',expense);
@@ -18,15 +20,31 @@ export default function ExpensesAdd(){
         alert(Service.dohvatiPorukeAlert(odgovor.podaci));
     }
 
-    function handleSubmit(e){
+
+    function handleSubmit(e) {
         e.preventDefault();
+    
         const podaci = new FormData(e.target);
+    
+        if (podaci.get("expense_date") == "" && podaci.get("vrijeme") != "") {
+          alert("Date is required");
+          return;
+        }
+        let expense_date = null;
+        if (podaci.get("expense_date") != "") {
+          if (podaci.get("vrijeme") != "") {
+            expense_date = moment.utc(podaci.get("expense_date") + " " + podaci.get("vrijeme"));
+          } else {
+            expense_date = moment.utc(podaci.get("expense_date"));
+          }
+        }
         addExpense({
-            expense_date:"2024-05-25",
+            expense_date:podaci.get("expense_date"),
             expense_sum: parseFloat(podaci.get('expense_sum')),
-            expense_shared: podaci.get('expense_shared')           
+            expense_shared: podaci.get('expense_shared')  
         });
-    }
+      }
+    
 
     return (
 
@@ -40,5 +58,4 @@ export default function ExpensesAdd(){
         </Container>
 
     );
-
-}
+    }

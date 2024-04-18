@@ -4,8 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import Service from "../../services/ExpenseService";
 import { RoutesNames } from "../../constants";
 import InputText from "../../components/InputText";
-import InputCheckbox from "../../components/InputCheckbox";
 import Action from "../../components/Action";
+
 
 export default function ExpensesChange(){
 

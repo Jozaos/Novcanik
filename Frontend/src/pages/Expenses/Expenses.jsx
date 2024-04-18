@@ -7,6 +7,7 @@ import { IoIosAdd } from "react-icons/io";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { RoutesNames } from "../../constants";
+import moment from "moment";
 
 
 export default function Expenses(){
@@ -34,6 +35,14 @@ export default function Expenses(){
         getExpenses();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
+
+    function formatDate(datestart) {
+        let mdp = moment.utc(datestart);
+        if (mdp.hour() == 0 && mdp.minutes() == 0) {
+          return mdp.format("DD. MM. YYYY.");
+        }
+        return mdp.format("DD. MM. YYYY. HH:mm");
+      }
     
     return (
 
@@ -57,8 +66,8 @@ export default function Expenses(){
                         <tr key={index}>
 
                                 <td>{expense.expense_date}</td>
-                                <td>{expense.expense_sum}
-                                
+
+                                <td>
                                 <NumericFormat 
                                     value={expense.expense_sum}
                                     displayType={'text'}
@@ -68,9 +77,9 @@ export default function Expenses(){
                                     decimalScale={2}
                                     fixedDecimalScale
                                     />
-                                
                                 </td>
-                                <td>{expense.expense_shared}
+
+                                <td>
                                 <NumericFormat 
                                     value={expense.expense_shared}
                                     displayType={'text'}
