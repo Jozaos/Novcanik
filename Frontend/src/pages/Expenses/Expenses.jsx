@@ -35,14 +35,6 @@ export default function Expenses(){
         getExpenses();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
-
-    function formatDate(datestart) {
-        let mdp = moment.utc(datestart);
-        if (mdp.hour() == 0 && mdp.minutes() == 0) {
-          return mdp.format("DD. MM. YYYY.");
-        }
-        return mdp.format("DD. MM. YYYY. HH:mm");
-      }
     
     return (
 
@@ -65,12 +57,7 @@ export default function Expenses(){
                     {expenses && expenses.map((expense,index)=>(
                         <tr key={index}>
 
-<<<<<<< HEAD
-                                <td>{formatDate(expense.expense_date)}</td>
-
-=======
                                 <td>{moment(expense.expense_date).format('DD/MM/YYYY')}</td>
->>>>>>> Tu-je-radilo
                                 <td>
                                 <NumericFormat 
                                     value={expense.expense_sum}

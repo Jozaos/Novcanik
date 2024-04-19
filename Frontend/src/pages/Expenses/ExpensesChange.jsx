@@ -4,9 +4,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import Service from "../../services/ExpenseService";
 import { RoutesNames } from "../../constants";
 import InputText from "../../components/InputText";
+import InputCheckbox from "../../components/InputCheckbox";
 import Action from "../../components/Action";
 import moment from "moment";
-
 
 export default function ExpensesChange(){
 
@@ -21,12 +21,7 @@ export default function ExpensesChange(){
             navigate(RoutesNames.EXPENSE_OVERVIEW);
             return;
         }
-<<<<<<< HEAD
-        odgovor.podaci.creationDate = moment.utc(odgovor.podaci.creationDate).format('YYYY-MM-DD')
-        odgovor.podaci.completionDate = moment.utc(odgovor.podaci.completionDate).format('YYYY-MM-DD')
-=======
         odgovor.podaci.expense_date = moment.utc(odgovor.podaci.expense_date).format('yyyy-MM-DD')
->>>>>>> Tu-je-radilo
         setExpense(odgovor.podaci);
     }
 
