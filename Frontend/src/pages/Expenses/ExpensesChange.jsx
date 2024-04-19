@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import {  Container, Form } from "react-bootstrap";
+import {  Container, Form, FormControl, FormGroup, FormLabel } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import Service from "../../services/ExpenseService";
 import { RoutesNames } from "../../constants";
 import InputText from "../../components/InputText";
 import InputCheckbox from "../../components/InputCheckbox";
 import Action from "../../components/Action";
+import moment from "moment";
 
 export default function ExpensesChange(){
 
@@ -20,6 +21,7 @@ export default function ExpensesChange(){
             navigate(RoutesNames.EXPENSE_OVERVIEW);
             return;
         }
+        odgovor.podaci.expense_date = moment.utc(odgovor.podaci.expense_date).format('yyyy-MM-DD')
         setExpense(odgovor.podaci);
     }
 
@@ -42,20 +44,37 @@ export default function ExpensesChange(){
         e.preventDefault();
         const podaci = new FormData(e.target);
         changeExpense({
-            expense_date: "2024-05-25",
+            expense_date: podaci.get('expense_date'),
             expense_sum: parseFloat(podaci.get('expense_sum')),
             expense_shared: podaci.get('expense_shared') 
         });
     }
 
-
+    // const [startDate, setStartDate] = useState(new Date().toISOString().substr(0, 10));
 
     return (
         <Container>
            <Form onSubmit={handleSubmit}>
-                    <InputText atribut='expense_date' vrijednost={expense.expense_date} />
-                    <InputText atribut='expense_sum' vrijednost={expense.expense_sum} />
-                    <InputText atribut='expense_shared' vrijednost={expense.expense_shared} />
+                <Form.Group controlId="expense_date">
+                    <Form.Label>Expense date</Form.Label>
+                    <Form.Control 
+                    type="date" 
+                    name="expense_date"
+                    defaultValue={expense.expense_date}
+                    />
+                </Form.Group> 
+
+                <FormGroup controlId='expense_sum'>
+                    <FormLabel>Expense sum</FormLabel>
+                    <FormControl type="text" value={expense.expenses_sum} name="expense_sum" />
+                </FormGroup>
+
+                <FormGroup controlId='expense_shared'>
+                    <FormLabel>Expense shared</FormLabel>
+                    <FormControl type="text" value={expense.expenses_shared} name="expense_shared" />
+                </FormGroup>
+
+
                     <Action odustani={RoutesNames.EXPENSE_OVERVIEW} akcija='Change expense' />
              </Form>
              </Container>

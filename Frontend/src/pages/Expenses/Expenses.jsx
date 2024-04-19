@@ -7,6 +7,7 @@ import { IoIosAdd } from "react-icons/io";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { RoutesNames } from "../../constants";
+import moment from "moment";
 
 
 export default function Expenses(){
@@ -47,8 +48,8 @@ export default function Expenses(){
                 <thead>
                     <tr>
                         <th>Date</th>
-                        <th>Value (€)</th>
-                        <th>Shared (€)</th>
+                        <th>Value</th>
+                        <th>Shared</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -56,7 +57,7 @@ export default function Expenses(){
                     {expenses && expenses.map((expense,index)=>(
                         <tr key={index}>
 
-                                <td>{expense.expense_date}</td>
+                                <td>{moment(expense.expense_date).format('DD/MM/YYYY')}</td>
                                 <td>
                                 <NumericFormat 
                                     value={expense.expense_sum}
@@ -68,7 +69,7 @@ export default function Expenses(){
                                     fixedDecimalScale
                                     />
                                 </td>
-                                
+
                                 <td>
                                 <NumericFormat 
                                     value={expense.expense_shared}
