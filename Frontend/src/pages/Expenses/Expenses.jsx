@@ -56,8 +56,8 @@ export default function Expenses(){
                 <thead>
                     <tr>
                         <th>Date</th>
-                        <th>Value (€)</th>
-                        <th>Shared (€)</th>
+                        <th>Value</th>
+                        <th>Shared</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -65,8 +65,12 @@ export default function Expenses(){
                     {expenses && expenses.map((expense,index)=>(
                         <tr key={index}>
 
+<<<<<<< HEAD
                                 <td>{formatDate(expense.expense_date)}</td>
 
+=======
+                                <td>{moment(expense.expense_date).format('DD/MM/YYYY')}</td>
+>>>>>>> Tu-je-radilo
                                 <td>
                                 <NumericFormat 
                                     value={expense.expense_sum}
