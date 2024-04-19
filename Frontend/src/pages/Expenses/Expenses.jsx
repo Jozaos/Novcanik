@@ -57,8 +57,7 @@ export default function Expenses(){
                         <tr key={index}>
 
                                 <td>{expense.expense_date}</td>
-                                <td>{expense.expense_sum}
-                                
+                                <td>
                                 <NumericFormat 
                                     value={expense.expense_sum}
                                     displayType={'text'}
@@ -68,9 +67,9 @@ export default function Expenses(){
                                     decimalScale={2}
                                     fixedDecimalScale
                                     />
-                                
                                 </td>
-                                <td>{expense.expense_shared}
+                                
+                                <td>
                                 <NumericFormat 
                                     value={expense.expense_shared}
                                     displayType={'text'}
