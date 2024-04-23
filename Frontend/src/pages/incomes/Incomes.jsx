@@ -1,93 +1,103 @@
-import { useEffect, useState } from 'react';
-import Container from 'react-bootstrap/Container';
-import IncomeService from '../../services/IncomeService';
-import { Button, Table } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
-import {RoutesNames} from '../../constants'
+import { useEffect, useState } from "react";
+import {  Button, Container, Table } from "react-bootstrap";
+import Service from "../../services/IncomeService";
+import { NumericFormat } from "react-number-format";
+import { GrValidate } from "react-icons/gr";
+import { IoIosAdd } from "react-icons/io";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { RoutesNames } from "../../constants";
+import moment from "moment";
 
 
 export default function Incomes(){
-    const [incomes, setIncomes] = useState();
+    const [incomes,setIncomes] = useState();
     const navigate = useNavigate();
-
-
     async function getIncomes(){
-        await AccountService.get()
-        .then((odg)=>{
-            setIncomes(odg.poruka);
-        })
-        .catch((e)=>{
-            console.log(e);
-        });
-    }
-
-    useEffect(()=>{
-        getIncomes();
-    },[]);
-
-    async function obrisiAsync(id){
-        const odgovor = await IncomesService._delete(id);
-        if (odgovor.greska){
-            console.log(odgovor.poruka);
-            alert('Pogledaj konzolu');
+        const odgovor = await Service.get('Income');
+        if(!odgovor.ok){
+            alert(Service.dohvatiPorukeAlert(odgovor.podaci));
             return;
         }
+        setIncomes(odgovor.podaci);
+    }
+
+    async function deleteIncome(id){
+        const odgovor = await Service.obrisi('Income',id);
+        alert(Service.dohvatiPorukeAlert(odgovor.podaci));
+        if (odgovor.ok){
+            getIncomes();
+        }
+    }
+     // Ovo se poziva dvaput u dev ali jednom u produkciji
+    // https://stackoverflow.com/questions/60618844/react-hooks-useeffect-is-called-twice-even-if-an-empty-array-is-used-as-an-ar
+    useEffect(()=>{
         getIncomes();
-    }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
+    
+    return (
 
-    function obrisi(id){
-        obrisiAsync(id);
-    }
-
-    return(
-        <>
-           <Container>
-            <Button>
-                <Link to={RoutesNames.INCOME_ADD} style={{textDecoration:'none', color:'black'}}> Add </Link>
-            </Button>
-            <p>
-
-            </p>
-            
+        <Container>
+            <Link to={RoutesNames.INCOME_NEW} className="btn btn-success siroko">
+                <IoIosAdd
+                size={25}
+                /> Add
+            </Link>
             <Table striped bordered hover responsive>
-                    <thead>
-                        <tr>
-                            <th>Username</th>
-                            <th>First name</th>
-                            <th>Last name</th>
-                            <th>ID Number</th>
-                            <th>Balance (€)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {incomes && incomes.map((incomes,index)=>(
-                            <tr key={index}>
-                                <td>{incomes.username}</td>
-                                <td>{incomes.owner_name}</td>
-                                <td>{incomes.surname}</td>
-                                <td>{incomes.id_num}</td>
-                                <td>{incomes.balance}</td>
-                                <td>
-                                    <Button 
-                                    onClick={()=>obrisi(incomes.id)}
-                                    variant='danger'
-                                    >
-                                        Delete
-                                    </Button>
-                                    {' '}
+                <thead>
+                    <tr>
+                        <th>Expected income?</th>
+                        <th>Value</th>
+                        <th>Account</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {incomes && incomes.map((income,index)=>(
+                        <tr key={index}>
 
-                                        {/* kosi jednostruki navodnici `` su AltGR (desni) + 7 */}
-                                    <Button 
-                                    onClick={()=>{navigate(`/incomes/${incomes.id}`)}} 
-                                    >
-                                        Change
-                                    </Button>
+                                <td>{income.income_type}</td>
+                                <td>
+                                <NumericFormat 
+                                    value={income.income_value}
+                                    displayType={'text'}
+                                    thousandSeparator='.'
+                                    decimalSeparator=','
+                                    prefix={'€'}
+                                    decimalScale={2}
+                                    fixedDecimalScale
+                                    />
                                 </td>
-                            </tr>
-                        ))}
-                    </tbody>
+
+                                <td>{income.accountid}</td>
+
+                                <td className="sredina">
+                                <Button 
+                                variant="primary"
+                                onClick={()=>{navigate(`/income/${income.id}`)}}>
+                                    <FaEdit 
+                                    size={25}
+                                    />
+                                </Button>
+                                
+                                    &nbsp;&nbsp;&nbsp;
+                                <Button
+                                    variant="danger"
+                                    onClick={()=>deleteIncome(income.id)}
+                                >
+                                    <FaTrash  
+                                    size={25}
+                                    />
+                                </Button>
+
+                                </td>
+                        </tr>
+                    ))}
+                </tbody>
             </Table>
-           </Container>
-        </>
+        </Container>
+
     );
+
 }

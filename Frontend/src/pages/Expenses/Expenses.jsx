@@ -85,7 +85,7 @@ export default function Expenses(){
                             <td className="sredina">
                                 <Button 
                                 variant="primary"
-                                onClick={()=>{navigate(`/expenses/${expense.id}`)}}>
+                                onClick={()=>{navigate(`/expense/${expense.id}`)}}>
                                     <FaEdit 
                                     size={25}
                                     />

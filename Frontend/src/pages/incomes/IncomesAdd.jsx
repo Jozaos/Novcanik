@@ -22,7 +22,8 @@ export default function IncomesAdd(){
         const podaci = new FormData(e.target);
         dodajIncome({
             accountid: parseFloat(podaci.get('accountid')),
-            income_type: podaci.get('income_type')=='on' ? true: false
+            income_type: podaci.get('income_type')=='on' ? true: false,
+            income_value:parseFloat(podaci.get('income_value'))
         });
     }
 

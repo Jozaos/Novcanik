@@ -25,13 +25,18 @@ export default function NavBar(){
                     target='_blank'>API</Nav.Link>
                     
                     <NavDropdown title="Menu" id="collapsible-nav-dropdown" className='menu'>
+
+                    <NavDropdown.Item 
+                    onClick={()=>navigate(RoutesNames.ACCOUNT_OVERVIEW)}
+                    >Accounts</NavDropdown.Item>
+
                     <NavDropdown.Item 
                     onClick={()=>navigate(RoutesNames.EXPENSE_OVERVIEW)}
                     >Expenses</NavDropdown.Item>
                     
                     <NavDropdown.Item 
-                    onClick={()=>navigate(RoutesNames.ACCOUNT_OVERVIEW)}
-                    >Accounts</NavDropdown.Item>
+                    onClick={()=>navigate(RoutesNames.INCOME_OVERVIEW)}
+                    >Income</NavDropdown.Item>
                       
                     </NavDropdown>
                 </Nav>

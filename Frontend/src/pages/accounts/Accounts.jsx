@@ -1,93 +1,110 @@
-import { useEffect, useState } from 'react';
-import Container from 'react-bootstrap/Container';
-import AccountService from '../../services/AccountService';
-import { Button, Table } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
-import {RoutesNames} from '../../constants'
+import { useEffect, useState } from "react";
+import {  Button, Container, Table } from "react-bootstrap";
+import Service from "../../services/AccountService";
+import { NumericFormat } from "react-number-format";
+import { GrValidate } from "react-icons/gr";
+import { IoIosAdd } from "react-icons/io";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { RoutesNames } from "../../constants";
+import moment from "moment";
 
 
 export default function Accounts(){
-    const [accounts, setAccounts] = useState();
+    const [accounts,setAccounts] = useState();
     const navigate = useNavigate();
-
-
     async function getAccounts(){
-        await AccountService.get()
-        .then((odg)=>{
-            setAccounts(odg.poruka);
-        })
-        .catch((e)=>{
-            console.log(e);
-        });
-    }
-
-    useEffect(()=>{
-        getAccounts();
-    },[]);
-
-    async function obrisiAsync(id){
-        const odgovor = await AccountsService._delete(id);
-        if (odgovor.greska){
-            console.log(odgovor.poruka);
-            alert('Pogledaj konzolu');
+        const odgovor = await Service.get('Account');
+        if(!odgovor.ok){
+            alert(Service.dohvatiPorukeAlert(odgovor.podaci));
             return;
         }
+        setAccounts(odgovor.podaci);
+    }
+
+    async function deleteAccount(id){
+        const odgovor = await Service.obrisi('Account',id);
+        alert(Service.dohvatiPorukeAlert(odgovor.podaci));
+        if (odgovor.ok){
+            getAccounts();
+        }
+    }
+     // Ovo se poziva dvaput u dev ali jednom u produkciji
+    // https://stackoverflow.com/questions/60618844/react-hooks-useeffect-is-called-twice-even-if-an-empty-array-is-used-as-an-ar
+    useEffect(()=>{
         getAccounts();
-    }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
+    
+    return (
 
-    function obrisi(id){
-        obrisiAsync(id);
-    }
-
-    return(
-        <>
-           <Container>
-            <Button>
-                <Link to={RoutesNames.ACCOUNT_ADD} style={{textDecoration:'none', color:'black'}}> Add </Link>
-            </Button>
-            <p>
-
-            </p>
-            
+        <Container>
+            <Link to={RoutesNames.ACCOUNT_NEW} className="btn btn-success siroko">
+                <IoIosAdd
+                size={25}
+                /> Add
+            </Link>
             <Table striped bordered hover responsive>
-                    <thead>
-                        <tr>
-                            <th>Username</th>
-                            <th>First name</th>
-                            <th>Last name</th>
-                            <th>ID Number</th>
-                            <th>Balance (€)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {accounts && accounts.map((accounts,index)=>(
-                            <tr key={index}>
-                                <td>{accounts.username}</td>
-                                <td>{accounts.owner_name}</td>
-                                <td>{accounts.surname}</td>
-                                <td>{accounts.id_num}</td>
-                                <td>{accounts.balance}</td>
-                                <td>
-                                    <Button 
-                                    onClick={()=>obrisi(accounts.id)}
-                                    variant='danger'
-                                    >
-                                        Delete
-                                    </Button>
-                                    {' '}
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>ID Number</th>
+                        <th>Balance</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {accounts && accounts.map((account,index)=>(
+                        <tr key={index}>
 
-                                        {/* kosi jednostruki navodnici `` su AltGR (desni) + 7 */}
-                                    <Button 
-                                    onClick={()=>{navigate(`/accounts/${accounts.id}`)}} 
-                                    >
-                                        Change
-                                    </Button>
+                                <td>{account.username}</td>
+
+                                <td>{account.owner_name}</td>
+
+                                <td>{account.surname}</td>
+
+                                <td>{account.id_num}</td>
+
+                                <td>
+                                <NumericFormat 
+                                    value={account.balance}
+                                    displayType={'text'}
+                                    thousandSeparator='.'
+                                    decimalSeparator=','
+                                    prefix={'€'}
+                                    decimalScale={2}
+                                    fixedDecimalScale
+                                    />
                                 </td>
-                            </tr>
-                        ))}
-                    </tbody>
+
+                            <td className="sredina">
+                                <Button 
+                                variant="primary"
+                                onClick={()=>{navigate(`/account/${account.id}`)}}>
+                                    <FaEdit 
+                                    size={25}
+                                    />
+                                </Button>
+                                
+                                    &nbsp;&nbsp;&nbsp;
+                                <Button
+                                    variant="danger"
+                                    onClick={()=>deleteAccount(account.id)}
+                                >
+                                    <FaTrash  
+                                    size={25}
+                                    />
+                                </Button>
+
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
             </Table>
-           </Container>
-        </>
+        </Container>
+
     );
+
 }

@@ -15,7 +15,7 @@ export default function ExpensesChange(){
     const [expense,setExpense] = useState({});
 
     async function getExpense(){
-        const odgovor = await Service.getBySifra('Expense',routeParams.sifra)
+        const odgovor = await Service.getBySifra('Expense',routeParams.id)
         if(!odgovor.ok){
             alert(Service.dohvatiPorukeAlert(odgovor.podaci));
             navigate(RoutesNames.EXPENSE_OVERVIEW);
@@ -31,7 +31,7 @@ export default function ExpensesChange(){
     },[]);
 
     async function changeExpense(expense){
-        const odgovor = await Service.promjeni('Expense',routeParams.sifra,expense);
+        const odgovor = await Service.promjeni('Expense',routeParams.id,expense);
         if(odgovor.ok){
           navigate(RoutesNames.EXPENSE_OVERVIEW);
           return;

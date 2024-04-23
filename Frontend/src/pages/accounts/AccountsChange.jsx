@@ -1,120 +1,94 @@
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { RoutesNames } from "../../constants";
-import AccountService from "../../services/AccountService";
 import { useEffect, useState } from "react";
-
+import {  Container, Form, FormControl, FormGroup, FormLabel } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
+import Service from "../../services/AccountService";
+import { RoutesNames } from "../../constants";
+import InputText from "../../components/InputText";
+import InputCheckbox from "../../components/InputCheckbox";
+import Action from "../../components/Action";
+import moment from "moment";
 
 export default function AccountsChange(){
+
     const navigate = useNavigate();
     const routeParams = useParams();
-    const [account, setAccount] = useState({});
+    const [account,setAccount] = useState({});
 
-   async function getAccount(){
-        const o = await AccountService.getById(routeParams.id);
-        if(o.greska){
-            console.log(o.poruka);
-            alert('pogledaj konzolu');
+    async function getAccount(){
+        const odgovor = await Service.getBySifra('Account',routeParams.id)
+        if(!odgovor.ok){
+            alert(Service.dohvatiPorukeAlert(odgovor.podaci));
+            navigate(RoutesNames.ACCOUNT_OVERVIEW);
             return;
         }
-        setAccount(o.poruka);
-   }
-
-   async function promjeni(account){
-    const odgovor = await AccountService.put(routeParams.id,account);
-    if (odgovor.greska){
-        console.log(odgovor.poruka);
-        alert('Pogledaj konzolu');
-        return;
+        setAccount(odgovor.podaci);
     }
-    navigate(RoutesNames.ACCOUNT_OVERVIEW);
-}
 
-   useEffect(()=>{
-    getAccount();
-   },[]);
+    useEffect(()=>{
+        getAccount();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
 
-    function obradiSubmit(e){ // e predstavlja event
+    async function changeAccount(account){
+        const odgovor = await Service.promjeni('Account',routeParams.id,account);
+        if(odgovor.ok){
+          navigate(RoutesNames.ACCOUNT_OVERVIEW);
+          return;
+        }
+        alert(Service.dohvatiPorukeAlert(odgovor.podaci));
+    }
+
+    
+    function handleSubmit(e){
         e.preventDefault();
-        //alert('Dodajem expense');
-
         const podaci = new FormData(e.target);
-
-        const account = {
+        changeAccount({
             username:podaci.get('username'),
             owner_name:podaci.get('owner_name'),
             surname:podaci.get('surname'),
-            id_num:podaci.get('id_num'),
-            balance: parseFloat(podaci.get('balance')),             
-        };
-        //console.log(routeParams.id);
-        //console.log(expense);
-        promjeni(account);
-
+            id_num:podaci.get('id_num'), 
+            balance: parseFloat(podaci.get('balance'))  
+        });
     }
 
+    // const [startDate, setStartDate] = useState(new Date().toISOString().substr(0, 10));
+
     return (
-
         <Container>
-            <Form onSubmit={obradiSubmit}>
+           <Form onSubmit={handleSubmit}>
+           <FormGroup controlId="username">
+                    <FormLabel>Username</FormLabel>
+                    <Form.Control
+                        type="text"
+                        name="username"
+                        defaultValue={account.username}
+                    />
+                </FormGroup>
 
-                <Form.Group controlId="username">
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control 
-                    
-                    name="username" 
-                    defaultValue={account.username}
-                    required />
-                </Form.Group>
+                <FormGroup controlId='owner_name'>
+                    <FormLabel>First name</FormLabel>
+                    <FormControl type="text" defaultValue={account.owner_name} name="owner_name" />
+                </FormGroup>
 
-                <Form.Group controlId="owner_name">
-                    <Form.Label>First name</Form.Label>
-                    <Form.Control 
-                    
-                    name="owner_name" 
-                    defaultValue={account.owner_name}
-                    required />
-                </Form.Group>
+                <FormGroup controlId='surname'>
+                    <FormLabel>Last name</FormLabel>
+                    <FormControl type="text" defaultValue={account.surname} name="surname" />
+                </FormGroup>
 
-                <Form.Group controlId="surname">
-                    <Form.Label>Last name</Form.Label>
-                    <Form.Control 
-                    
-                    name="surname" 
-                    defaultValue={account.surname}
-                    required />
-                </Form.Group>
+                <FormGroup controlId='id_num'>
+                    <FormLabel>ID Number</FormLabel>
+                    <FormControl type="text" defaultValue={account.id_num} name="id_num" />
+                </FormGroup>
 
-                <Form.Group controlId="id_num">
-                    <Form.Label>ID Number</Form.Label>
-                    <Form.Control 
-                    
-                    name="id_num" 
-                    defaultValue={account.id_num}
-                    required />
-                </Form.Group>
+                <FormGroup controlId='balance'>
+                    <FormLabel>Balance</FormLabel>
+                    <FormControl type="text" defaultValue={account.balance} name="balance" />
+                </FormGroup>
 
-                <Form.Group controlId="balance">
-                    <Form.Label>Balance</Form.Label>
-                    <Form.Control type="text" name="balance" defaultValue={account.balance} />
-                </Form.Group>
 
-                <hr />
-                <Row>
-                    <Col>
-                        <Link className="btn btn-danger siroko" to={RoutesNames.EXPENSE_OVERVIEW}>
-                            Cancel
-                        </Link>
-                    </Col>
-                    <Col>
-                        <Button className="siroko" variant="primary" type="submit">
-                            Change
-                        </Button>
-                    </Col>
-                </Row>
-
-            </Form>
-        </Container>
-
+                    <Action odustani={RoutesNames.ACCOUNT_OVERVIEW} akcija='Change account' />
+             </Form>
+             </Container>
     );
+
 }
