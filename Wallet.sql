@@ -65,3 +65,6 @@ insert into expenses (expense_date, expense_sum, expense_shared) values
 ALTER TABLE expenses ALTER COLUMN expense_sum decimal(18,2);
 ALTER TABLE expenses ALTER COLUMN expense_shared decimal(18,2);
 ALTER TABLE accounts ALTER COLUMN balance decimal(18,2);
+
+ALTER TABLE incomes ADD income_value decimal(18,2);
+ALTER TABLE incomes ALTER COLUMN accountid int not null;
