@@ -7,7 +7,6 @@ import { IoIosAdd } from "react-icons/io";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { RoutesNames } from "../../constants";
-import moment from "moment";
 
 
 export default function Incomes(){
@@ -35,6 +34,18 @@ export default function Incomes(){
         getIncomes();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
+
+    function verified(income){
+        if (income.verified==null) return 'gray';
+        if(income.verified) return 'green';
+        return 'red';
+    }
+
+    function verifiedTitle(income){
+        if (income.verified==null) return 'Not defined';
+        if(income.verified) return 'Expected';
+        return 'Not expected';
+    }
     
     return (
 
@@ -56,8 +67,14 @@ export default function Incomes(){
                 <tbody>
                     {incomes && incomes.map((income,index)=>(
                         <tr key={index}>
-
-                                <td>{income.income_type}</td>
+                            
+                            <td className="sredina">
+                            <GrValidate 
+                            size={30} 
+                            color={verified(income)}
+                            title={verifiedTitle(income)}
+                            />
+                            </td>
                                 <td>
                                 <NumericFormat 
                                     value={income.income_value}

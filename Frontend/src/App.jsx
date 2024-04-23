@@ -32,6 +32,7 @@ function App() {
         <Route path={RoutesNames.ACCOUNT_CHANGE} element={<AccountsChange />} />
 
         <Route path={RoutesNames.INCOME_OVERVIEW} element={<Incomes />} />
+        <Route path={RoutesNames.INCOME_NEW} element={<IncomesAdd />} />
 
       </Routes>
     </>
