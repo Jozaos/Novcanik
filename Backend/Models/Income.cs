@@ -9,6 +9,8 @@ namespace Backend.Models
 
         [ForeignKey("accountid")]
         public Account account { get; set; }
+
+        public decimal? income_value { get; set; }
     }
 
 }
