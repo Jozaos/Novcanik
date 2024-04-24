@@ -4,9 +4,7 @@ import { RoutesNames } from "../../constants";
 import Service from "../../services/IncomeService";
 import InputCheckbox from "../../components/InputCheckbox";
 import Action from "../../components/Action"
-import { GrValidate } from "react-icons/gr";
-import { IoIosAdd } from "react-icons/io";
-import { FaEdit, FaTrash } from "react-icons/fa";
+
 
 
 
@@ -43,8 +41,6 @@ export default function IncomesAdd(){
         <Container>
            <Form onSubmit={handleSubmit}>
            <InputCheckbox atribut='verified' vrijednost={false} />
-
-
 
                 <FormGroup controlId='income_value'>
                     <FormLabel>Value</FormLabel>
