@@ -14,6 +14,7 @@ import Accounts from './pages/accounts/Accounts'
 import AccountsAdd from './pages/accounts/AccountsAdd'
 import AccountsChange from './pages/accounts/AccountsChange'
 import Incomes from './pages/incomes/Incomes'
+import IncomesAdd from './pages/incomes/IncomesAdd'
 
 function App() {
 
