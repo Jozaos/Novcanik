@@ -111,7 +111,7 @@ namespace Backend.Controllers
         protected override Income PromjeniEntitet(IncomeDtoInsertUpdate dto, Income entitet)
         {
             var Korisnik = _context.Incomes.Find(dto.accountid) ?? throw new Exception("Ne postoji Korisnik s šifrom " + dto.accountid + " u bazi");
-            // ovdje je možda pametnije ići s ručnim mapiranje
+          
 
             entitet.account = Korisnik;
             entitet.income_value = dto.income_value;
