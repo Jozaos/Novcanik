@@ -2,6 +2,7 @@
 using Backend.Mapping;
 using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Text;
 
 namespace Backend.Controllers
@@ -55,7 +56,7 @@ namespace Backend.Controllers
                     return NotFound($"Nema unosa za korisnika imePrezime {accountid}");
                 }
 
-                var mapping = new Mapping<Income, IncomeDtoRead, IncomeDTOInsertUpdate>();
+                var mapping = new Mapping<Income, IncomeDTORead, IncomeDtoInsertUpdate>();
                 var unosiDtoList = unosiList.Select(u => mapping.MapReadToDTO(u)).ToList();
 
                 return new JsonResult(unosiDtoList);
@@ -66,10 +67,10 @@ namespace Backend.Controllers
             }
         }
 
-        protected override List<IncomeDtoRead> UcitajSve()
+        protected override List<IncomeDTORead> UcitajSve()
         {
             var lista = _context.Incomes
-                    .Include(g => g.Korisnik)
+                    .Include(g => g.account)
 
                     .ToList();
             if (lista == null || lista.Count == 0)
@@ -78,9 +79,9 @@ namespace Backend.Controllers
             }
             return _mapper.MapReadList(lista);
         }
-        protected override Income KreirajEntitet(IncomeDTOInsertUpdate dto)
+        protected override Income KreirajEntitet(IncomeDtoInsertUpdate dto)
         {
-            var Account = _context.Accounts.FirstOrDefault(k => k.id == dto.accountid);
+            var Account = _context.Accounts.FirstOrDefault(k => k.Id == dto.accountid);
             if (Account == null)
             {
                 throw new Exception("User doesn't exist" + dto.accountid + " in the base");
@@ -102,20 +103,20 @@ namespace Backend.Controllers
         {
 
             return _context.Incomes
-                           .Include(i => i.Korisnik)
-                           .FirstOrDefault(x => x.id == id)
+                           .Include(i => i.account)
+                           .FirstOrDefault(x => x.Id == id)
                    ?? throw new Exception("Ne postoji Income s šifrom " + id + " u bazi");
         }
 
-        protected override Income PromjeniEntitet(IncomeDTOInsertUpdate dto, Income entitet)
+        protected override Income PromjeniEntitet(IncomeDtoInsertUpdate dto, Income entitet)
         {
-            var Korisnik = _context.Korisnici.Find(dto.accountid) ?? throw new Exception("Ne postoji Korisnik s šifrom " + dto.accountid + " u bazi");
+            var Korisnik = _context.Incomes.Find(dto.accountid) ?? throw new Exception("Ne postoji Korisnik s šifrom " + dto.accountid + " u bazi");
             // ovdje je možda pametnije ići s ručnim mapiranje
 
-            entitet.Korisnik = Korisnik;
-            entitet.Datum = dto.Datum;
-            entitet.Vodostaj = dto.Vodostaj;
-            entitet.Biljeska = dto.Biljeska;
+            entitet.account = Korisnik;
+            entitet.income_value = dto.income_value;
+            entitet.income_type = dto.income_type;
+            
 
             return entitet;
         }
