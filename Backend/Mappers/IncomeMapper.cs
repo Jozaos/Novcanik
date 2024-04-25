@@ -17,7 +17,7 @@ namespace Backend.Mapping
                     entitet.income_type,
                     entitet.income_value
 
-                    )); ;
+                    )) ; ;
             }));
 
             MapperMapInsertUpdatedFromDTO = new Mapper(new MapperConfiguration(c => {
@@ -30,8 +30,8 @@ namespace Backend.Mapping
                  new IncomeDtoInsertUpdate(
 
 
-                    entitet.account.Id,
-                    entitet.expense.Id
+                    entitet.income_type,
+                    entitet.income_value
 
                      ));
             })); ; ;

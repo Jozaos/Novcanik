@@ -21,7 +21,7 @@ namespace Backend.Controllers
         protected override void DeleteControl(Income entitet)
         {
             var lista = _context.Incomes
-                .Where(x => x.id == entitet.id)
+                .Where(x => x.account == entitet.account)
                 .ToList();
             if (lista != null && lista.Count > 0)
             {
@@ -46,7 +46,7 @@ namespace Backend.Controllers
             try
             {
                 var unosiList = _context.Incomes
-                    .Where(u => u.accountid)
+                    .Where(u => u.account)
                     .Include(u => u.accountid)
                     .ToList();
 
@@ -80,19 +80,18 @@ namespace Backend.Controllers
         }
         protected override Income KreirajEntitet(IncomeDTOInsertUpdate dto)
         {
-            var Korisnik = _context.Korisnici.FirstOrDefault(k => k.id == dto.accountid);
-            if (Korisnik == null)
+            var Account = _context.Accounts.FirstOrDefault(k => k.id == dto.accountid);
+            if (Account == null)
             {
-                throw new Exception("Ne postoji korisnik s imenom i prezimenom " + dto.accountid + " u bazi");
+                throw new Exception("User doesn't exist" + dto.accountid + " in the base");
             }
 
 
 
             var entitet = _mapper.MapInsertUpdatedFromDTO(dto);
-            entitet.Korisnik = Korisnik;
-            entitet.Datum = dto.Datum;
-            entitet.Vodostaj = dto.Vodostaj;
-            entitet.Biljeska = dto.Biljeska;
+            entitet.account = Account;
+            entitet.income_type = dto.income_type;
+            entitet.income_value = dto.income_value;
 
             return entitet;
         }
