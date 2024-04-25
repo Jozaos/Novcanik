@@ -35,7 +35,7 @@ namespace Backend.Models
 
 
 
-    public record IncomeDTORead(int? id, bool? income_type, int? accountid);
+    public record IncomeDTORead(int? id, bool? income_type, int? accountid, decimal? income_value);
 
     public record IncomeDtoInsertUpdate(
         [Required(ErrorMessage = "Income type is required")]

@@ -15,7 +15,9 @@ namespace Backend.Mapping
                  new IncomeDTORead(
                     entitet.Id,
                     entitet.income_type,
+                    entitet.accountid,
                     entitet.income_value
+                    
 
                     )) ; ;
             }));
@@ -31,9 +33,9 @@ namespace Backend.Mapping
 
 
                     entitet.income_type,
-                    entitet.income_value
+                    entitet.Id
 
-                     ));
+                     )) ;
             })); ; ;
         }
     }
