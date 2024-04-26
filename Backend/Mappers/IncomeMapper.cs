@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Backend.Mapping
 {
-    public class IncomeMapping : Mapping<Income, IncomeDTORead, IncomeDtoInsertUpdate>
+    public class IncomeMapping : Mapping<Income, IncomeDTORead, IncomeDTOInsertUpdate>
     {
 
         public IncomeMapping()
@@ -15,29 +15,29 @@ namespace Backend.Mapping
                  new IncomeDTORead(
                     entitet.Id,
                     entitet.income_type,
-                    entitet.accountid,
+                    entitet.account.Id,
                     entitet.income_value
-                    
 
-                    )) ; ;
+
+                    )); ;
             }));
 
             MapperMapInsertUpdatedFromDTO = new Mapper(new MapperConfiguration(c => {
-                c.CreateMap<IncomeDtoInsertUpdate, Income>();
+                c.CreateMap<IncomeDTOInsertUpdate, Income>();
             }));
 
             MapperMapInsertUpdateToDTO = new Mapper(new MapperConfiguration(c => {
-                c.CreateMap<Income, IncomeDtoInsertUpdate>()
+                c.CreateMap<Income, IncomeDTOInsertUpdate>()
                 .ConstructUsing(entitet =>
-                 new IncomeDtoInsertUpdate(
+                 new IncomeDTOInsertUpdate(
 
 
                     entitet.income_type,
-                    entitet.Id
+                    entitet.Id,
+                    entitet.income_value
 
-                     )) ;
+                     ));
             })); ; ;
         }
     }
 }
-

@@ -5,7 +5,7 @@ namespace Backend.Models
 {
 
 
-    public record AccountsDTORead(int Id, string username, string owner_name, string surname, string id_num);
+    public record AccountsDTORead(int Id, string username, string owner_name, string surname, string id_num, decimal? balance);
 
 
     public record AccountsDTOInsertUpdate(
@@ -19,7 +19,10 @@ namespace Backend.Models
         string? surname,
      
      [Required(ErrorMessage = "Id number is required")]
-        string? id_num);
+        string? id_num,
+
+    [Required(ErrorMessage = "Id number is required")]
+    decimal? balance);
 
 
 
@@ -35,13 +38,15 @@ namespace Backend.Models
 
 
 
-    public record IncomeDTORead(int? id, bool? income_type, int? accountid, decimal? income_value);
+    public record IncomeDTORead(int? id, bool income_type, int? accountid, decimal? income_value);
 
-    public record IncomeDtoInsertUpdate(
+    public record IncomeDTOInsertUpdate(
         [Required(ErrorMessage = "Income type is required")]
-        bool? income_type,
+        bool income_type,
         [Required(ErrorMessage = "Account ID is required")]
-        int? accountid);
+        int? accountid,
+        [Required(ErrorMessage = "Account ID is required")]
+        decimal? income_value);
 
     public record GEDtoRead(int? id, int? accountidd, int? expenseid);
 
