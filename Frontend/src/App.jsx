@@ -15,6 +15,7 @@ import AccountsAdd from './pages/accounts/AccountsAdd'
 import AccountsChange from './pages/accounts/AccountsChange'
 import Incomes from './pages/incomes/Incomes'
 import IncomesAdd from './pages/incomes/IncomesAdd'
+import IncomesChange from './pages/incomes/IncomesChange'
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
 
         <Route path={RoutesNames.INCOME_OVERVIEW} element={<Incomes />} />
         <Route path={RoutesNames.INCOME_NEW} element={<IncomesAdd />} />
+        <Route path={RoutesNames.INCOME_CHANGE} element={<IncomesChange />} />
 
       </Routes>
     </>

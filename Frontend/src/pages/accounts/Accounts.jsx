@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import {  Button, Container, Table } from "react-bootstrap";
+import {  Button, Container, Table, Col, Card,Row } from "react-bootstrap";
 import Service from "../../services/AccountService";
 import { NumericFormat } from "react-number-format";
-import { GrValidate } from "react-icons/gr";
 import { IoIosAdd } from "react-icons/io";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { RoutesNames } from "../../constants";
-import moment from "moment";
+import riddler from "../../assets/riddler.png"
 
 
 export default function Accounts(){
@@ -35,6 +34,13 @@ export default function Accounts(){
         getAccounts();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
+
+    function slika(polaznik){
+        if(polaznik.slika!=null){
+            return App.URL + polaznik.slika+ `?${Date.now()}`;
+        }
+        return riddler;
+      }
     
     return (
 
@@ -45,30 +51,23 @@ export default function Accounts(){
                 /> Add
             </Link>
             <Table striped bordered hover responsive>
-                <thead>
-                    <tr>
-                        <th>Username</th>
-                        <th>First name</th>
-                        <th>Last name</th>
-                        <th>ID Number</th>
-                        <th>Balance</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {accounts && accounts.map((account,index)=>(
-                        <tr key={index}>
+                
+                <Row>
+                    {accounts && accounts.map((account)=>(
 
-                                <td>{account.username}</td>
-
-                                <td>{account.owner_name}</td>
-
-                                <td>{account.surname}</td>
-
-                                <td>{account.id_num}</td>
-
-                                <td>
-                                <NumericFormat 
+                            <Col key={account.id} sm={12} lg={3} md={3} >
+              <Card style={{ marginTop: '1rem', textAlign: 'center', display: '',  paddingTop: '1rem' }}>
+              <Card.Img variant="top" src={slika(account)} className="slika"/>
+                <Card.Body>
+                  <Card.Title>{account.owner_name} {account.surname}</Card.Title>
+                  <Card.Text>
+                    {account.username}
+                  </Card.Text>
+                  <Card.Text>
+                    ID Num: {account.id_num}
+                  </Card.Text>
+                  <Card.Text>
+                  <NumericFormat 
                                     value={account.balance}
                                     displayType={'text'}
                                     thousandSeparator='.'
@@ -77,31 +76,21 @@ export default function Accounts(){
                                     decimalScale={2}
                                     fixedDecimalScale
                                     />
-                                </td>
+                  </Card.Text>
+                  <Row>
+                      <Col>
+                      <Link className="btn btn-primary gumb siroko" to={`/account/${account.id}`}><FaEdit /></Link>
+                      </Col>
+                      <Col>
+                      <Button variant="danger" className="gumb siroko"  onClick={() => deleteAccount(account.id)}><FaTrash /></Button>
+                      </Col>
+                    </Row>
+                </Card.Body>
+              </Card>
+            </Col>
 
-                            <td className="sredina">
-                                <Button 
-                                variant="primary"
-                                onClick={()=>{navigate(`/account/${account.id}`)}}>
-                                    <FaEdit 
-                                    size={25}
-                                    />
-                                </Button>
-                                
-                                    &nbsp;&nbsp;&nbsp;
-                                <Button
-                                    variant="danger"
-                                    onClick={()=>deleteAccount(account.id)}
-                                >
-                                    <FaTrash  
-                                    size={25}
-                                    />
-                                </Button>
-
-                            </td>
-                        </tr>
                     ))}
-                </tbody>
+                </Row>
             </Table>
         </Container>
 

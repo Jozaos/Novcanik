@@ -21,19 +21,7 @@ namespace Backend.Controllers
         }
         protected override void DeleteControl(Income entitet)
         {
-            var lista = _context.Incomes
-                .Where(x => x.account == entitet.account)
-                .ToList();
-            if (lista != null && lista.Count > 0)
-            {
-                StringBuilder sb = new();
-                sb.Append("Can't be deleted, income is inserted.");
-                foreach (var e in lista)
-                {
-                    sb.Append(e).Append(", ");
-                }
-                throw new Exception(sb.ToString()[..^2]); // umjesto sb.ToString().Substring(0, sb.ToString().Length - 2)
-            }
+            
         }
 
       

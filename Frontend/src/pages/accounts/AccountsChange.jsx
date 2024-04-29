@@ -3,10 +3,8 @@ import {  Container, Form, FormControl, FormGroup, FormLabel } from "react-boots
 import { useNavigate, useParams } from "react-router-dom";
 import Service from "../../services/AccountService";
 import { RoutesNames } from "../../constants";
-import InputText from "../../components/InputText";
-import InputCheckbox from "../../components/InputCheckbox";
+import riddler from "../../assets/riddler.png"
 import Action from "../../components/Action";
-import moment from "moment";
 
 export default function AccountsChange(){
 
@@ -22,6 +20,15 @@ export default function AccountsChange(){
             return;
         }
         setAccount(odgovor.podaci);
+
+        setAccount(odgovor.podaci);
+    //Date.now je zbog toga što se src na image komponenti cache-ira
+    //pa kad promjenimo sliku url ostane isti i trenutna slika se ne updatea
+    if(odgovor.podaci.slika!=null){
+      setTrenutnaSlika(App.URL + odgovor.podaci.slika + `?${Date.now()}`);
+    }else{
+      setTrenutnaSlika(riddler);
+    }
     }
 
     useEffect(()=>{
@@ -47,11 +54,10 @@ export default function AccountsChange(){
             owner_name:podaci.get('owner_name'),
             surname:podaci.get('surname'),
             id_num:podaci.get('id_num'), 
-            balance: parseFloat(podaci.get('balance'))  
+            balance: parseFloat(podaci.get('balance')),
+            slika:''
         });
     }
-
-    // const [startDate, setStartDate] = useState(new Date().toISOString().substr(0, 10));
 
     return (
         <Container>

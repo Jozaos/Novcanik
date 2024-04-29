@@ -35,6 +35,7 @@ export default function Incomes(){
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
+
     function verified(income){
         if (income.verified==null) return 'gray';
         if(income.verified) return 'green';
