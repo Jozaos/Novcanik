@@ -6,15 +6,42 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers
 {
+
+    /// <summary>
+    /// Apstraktna klasa koja objedinjuje zajedničke rute CRUD operacija
+    /// </summary>
+    /// <typeparam name="T">Tip entiteta</typeparam>
+    /// <typeparam name="TDR">DTO read</typeparam>
+    /// <typeparam name="TDI">DTO insert i update</typeparam>
+    /// <param name="context">Kontekst baze podataka</param>
     public abstract class UniversalController<T, TDR, TDI>(WalletContext context) : ControllerBase where T : Entitet
     {
+
+        /// <summary>
+        /// Trenutni DBset
+        /// </summary>
         protected DbSet<T>? DbSet = null;
 
+        /// <summary>
+        /// Mapper koji koristim
+        /// </summary>
         protected Mapping<T, TDR, TDI> _mapper = new();
+
+        /// <summary>
+        /// Svaka potklasa mora implementirati metodu a ako nema uvjeta brisanja ostavlja ju praznu
+        /// </summary>
+        /// <param name="entitet"></param>
         protected abstract void DeleteControl(T entitet);
 
+        /// <summary>
+        /// Kontekst baze podataka (DI)
+        /// </summary>
         protected readonly WalletContext _context = context;
 
+        /// <summary>
+        /// Dohvaćanje svih entiteta iz baze prema DTO read
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Get()
         {
@@ -31,6 +58,12 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Dohvaćanje jednog entiteta iz baze prema DTO read
+        /// </summary>
+        /// <param name="id">Primarni ključ u bazi</param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{id:int}")]
         public IActionResult GetBySifra(int id)
@@ -51,7 +84,11 @@ namespace Backend.Controllers
         }
 
 
-
+        /// <summary>
+        /// Dodavanje novog entiteta u bazu
+        /// </summary>
+        /// <param name="entitetDTO">DTO insert i update</param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Post(TDI entitetDTO)
         {
@@ -73,6 +110,13 @@ namespace Backend.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Promjena entiteta u bazi
+        /// </summary>
+        /// <param name="id">Primarni ključ</param>
+        /// <param name="dto">DTO insert i update</param>
+        /// <returns></returns>
         [HttpPut]
         [Route("{id:int}")]
         public IActionResult Put(int id, TDI dto)
@@ -99,6 +143,12 @@ namespace Backend.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Brisanej entiteta iz baze (ako je kontrola brisanja prošla)
+        /// </summary>
+        /// <param name="id">Primarni ključ</param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("{id:int}")]
         public IActionResult Delete(int id)
