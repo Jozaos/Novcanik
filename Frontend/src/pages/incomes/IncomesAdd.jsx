@@ -43,7 +43,7 @@ export default function IncomesAdd(){
            <InputCheckbox atribut='verified' vrijednost={false} />
 
                 <FormGroup controlId='income_value'>
-                    <FormLabel>Value</FormLabel>
+                    <FormLabel>Value (use decimal point '.')</FormLabel>
                     <FormControl type="text" name="income_value" />
                 </FormGroup>
 

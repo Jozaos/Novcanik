@@ -65,12 +65,12 @@ export default function ExpensesChange(){
                 </Form.Group> 
 
                 <FormGroup controlId='expense_sum'>
-                    <FormLabel>Expense sum</FormLabel>
+                    <FormLabel>Expense sum (use decimal point '.')</FormLabel>
                     <FormControl type="text" value={expense.expenses_sum} name="expense_sum" />
                 </FormGroup>
 
                 <FormGroup controlId='expense_shared'>
-                    <FormLabel>Expense shared</FormLabel>
+                    <FormLabel>Expense shared (use decimal point '.')</FormLabel>
                     <FormControl type="text" value={expense.expenses_shared} name="expense_shared" />
                 </FormGroup>
 

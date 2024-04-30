@@ -66,7 +66,7 @@ export default function AccountsAdd(){
                 </FormGroup>
 
                 <FormGroup controlId='balance'>
-                    <FormLabel>Balance</FormLabel>
+                    <FormLabel>Balance (use decimal point '.')</FormLabel>
                     <FormControl type="text" name="balance" />
                 </FormGroup>
 

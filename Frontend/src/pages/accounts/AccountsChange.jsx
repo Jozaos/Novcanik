@@ -87,7 +87,7 @@ export default function AccountsChange(){
                 </FormGroup>
 
                 <FormGroup controlId='balance'>
-                    <FormLabel>Balance</FormLabel>
+                    <FormLabel>Balance (use decimal point '.')</FormLabel>
                     <FormControl type="text" defaultValue={account.balance} name="balance" />
                 </FormGroup>
 
