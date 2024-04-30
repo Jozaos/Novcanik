@@ -50,6 +50,7 @@ export default function Expenses(){
                         <th>Date</th>
                         <th>Value</th>
                         <th>Shared</th>
+                        <th>Final expense</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -73,6 +74,18 @@ export default function Expenses(){
                                 <td>
                                 <NumericFormat 
                                     value={expense.expense_shared}
+                                    displayType={'text'}
+                                    thousandSeparator='.'
+                                    decimalSeparator=','
+                                    prefix={'€'}
+                                    decimalScale={2}
+                                    fixedDecimalScale
+                                    />
+                                </td>
+
+                                <td>
+                                <NumericFormat 
+                                    value={expense.expense_sum-expense.expense_shared}
                                     displayType={'text'}
                                     thousandSeparator='.'
                                     decimalSeparator=','
