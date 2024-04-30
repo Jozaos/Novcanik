@@ -44,6 +44,8 @@ export default function Accounts(){
     
     return (
 
+/* Sa odredenog accounta kliknuti ikonicu koja vodi na rutu gdje se mogu vidjeti svi troskovi i prihodi tog racuna*/
+
         <Container>
             <Link to={RoutesNames.ACCOUNT_NEW} className="btn btn-success siroko">
                 <IoIosAdd
