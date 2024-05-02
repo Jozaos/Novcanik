@@ -1,4 +1,5 @@
 using Backend.Data;
+using Backend.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,16 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddCors(opcije =>
-{
-    opcije.AddPolicy("CorsPolicy",
-        builder =>
-            builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
-    );
-
-});
+builder.Services.AddWalletSwaggerGen();
+builder.Services.AddWalletCORS();
 
 
 builder.Services.AddDbContext<WalletContext>(o =>
@@ -41,6 +34,7 @@ var app = builder.Build();
 //}
 
 
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
