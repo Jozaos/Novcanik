@@ -7,11 +7,18 @@ using System.Text;
 
 namespace Backend.Controllers
 {
+    /// <summary>
+    /// Kontroler za rute na entitetu Income
+    /// </summary>
 
     [ApiController]
     [Route("api/v1/[controller]")]
     public class IncomeController : UniversalController<Income, IncomeDTORead, IncomeDTOInsertUpdate>
     {
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="context">Kontekst baze podataka</param>
         public IncomeController(WalletContext context) : base(context)
         {
             DbSet = _context.Incomes;
@@ -19,6 +26,10 @@ namespace Backend.Controllers
 
 
         }
+        /// <summary>
+        /// Svaka potklasa mora implementirati metodu a ako nema uvjeta brisanja ostavlja ju praznu
+        /// </summary>
+        /// <param name="entitet"></param>
         protected override void DeleteControl(Income entitet)
         {
             

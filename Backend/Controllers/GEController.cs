@@ -12,10 +12,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers
 {
+    /// <summary>
+    /// Kontroler za rutu GroupExpense
+    /// </summary>
+
     [ApiController]
     [Route("api/v1/[controller]")]
     public class GEController : UniversalController<GroupExpense, GEDtoRead, GEDTOInsertUpdate>
     {
+
+        /// <summary>
+        /// Konstruktor
+        /// </summary>
+        /// <param name="context">Kontekst baze podataka</param>
         public GEController(WalletContext context) : base(context)
         {
             DbSet = _context.Group_Expenses;
@@ -23,6 +32,11 @@ namespace Backend.Controllers
 
 
         }
+
+        /// <summary>
+        /// Svaka potklasa mora implementirati metodu a ako nema uvjeta brisanja ostavlja ju praznu
+        /// </summary>
+        /// <param name="entitet"></param>
         protected override void DeleteControl(GroupExpense entitet)
         {
 
