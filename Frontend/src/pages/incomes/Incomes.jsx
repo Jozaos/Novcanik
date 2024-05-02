@@ -37,14 +37,14 @@ export default function Incomes(){
 
 
     function verified(income){
-        if (income.verified==null) return 'gray';
-        if(income.verified) return 'green';
+        if (income.income_type==null) return 'gray';
+        if(income.income_type) return 'green';
         return 'red';
     }
 
     function verifiedTitle(income){
-        if (income.verified==null) return 'Not defined';
-        if(income.verified) return 'Expected';
+        if (income.income_type==null) return 'Not defined';
+        if(income.income_type) return 'Expected';
         return 'Not expected';
     }
     
